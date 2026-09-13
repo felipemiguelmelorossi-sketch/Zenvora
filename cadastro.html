@@ -13,46 +13,58 @@
 
     <meta
         name="description"
-        content="Crie sua conta na Zenvora e descubra experiências feitas para você."
+        content="Crie sua conta na Zenvora."
     >
 
-    <title>Criar conta — Zenvora</title>
+    <title>Criar conta | Zenvora</title>
 
     <link rel="stylesheet" href="style.css">
 
     <style>
 
-        /* =====================================================
-           ZENVORA — CADASTRO PREMIUM
-           ===================================================== */
+        * {
+            box-sizing: border-box;
+        }
 
-        .register-page {
+        body {
+            margin: 0;
             min-height: 100vh;
+
+            font-family:
+                Inter,
+                -apple-system,
+                BlinkMacSystemFont,
+                "Segoe UI",
+                sans-serif;
+
+            color: #fff;
+
             background:
                 radial-gradient(
-                    circle at 15% 20%,
-                    rgba(110, 70, 255, .16),
-                    transparent 32%
+                    circle at 10% 10%,
+                    rgba(117, 76, 255, .20),
+                    transparent 30%
                 ),
                 radial-gradient(
-                    circle at 85% 80%,
-                    rgba(0, 210, 255, .10),
+                    circle at 90% 90%,
+                    rgba(0, 204, 255, .13),
                     transparent 30%
                 ),
                 #050507;
-            color: #fff;
+
             overflow-x: hidden;
         }
 
 
-        /* FUNDO */
+        /* =========================
+           FUNDO
+           ========================= */
 
         .register-bg {
             position: fixed;
             inset: 0;
-            pointer-events: none;
-            overflow: hidden;
             z-index: 0;
+            pointer-events: none;
         }
 
 
@@ -77,39 +89,43 @@
                 linear-gradient(
                     to bottom,
                     black,
-                    transparent 85%
+                    transparent
                 );
         }
 
 
         .register-orb {
             position: absolute;
-            width: 500px;
-            height: 500px;
+
+            width: 480px;
+            height: 480px;
+
             border-radius: 50%;
 
-            filter: blur(100px);
+            filter: blur(120px);
 
             opacity: .18;
 
             animation:
-                registerFloat 9s ease-in-out infinite;
+                registerFloat 10s ease-in-out infinite;
         }
 
 
         .register-orb.one {
-            background: #7447ff;
-            top: -250px;
+            top: -280px;
             left: -180px;
+
+            background: #7047ff;
         }
 
 
         .register-orb.two {
-            background: #00c8ff;
-            right: -250px;
-            bottom: -250px;
+            right: -280px;
+            bottom: -300px;
 
-            animation-delay: -4s;
+            background: #00cfff;
+
+            animation-delay: -5s;
         }
 
 
@@ -117,27 +133,27 @@
 
             0%,
             100% {
-                transform: translate3d(0,0,0);
+                transform:
+                    translate(0, 0);
             }
 
             50% {
-                transform: translate3d(
-                    25px,
-                    -25px,
-                    0
-                );
+                transform:
+                    translate(25px, -30px);
             }
 
         }
 
 
-        /* NAVBAR */
+        /* =========================
+           NAVBAR
+           ========================= */
 
         .register-navbar {
             position: relative;
-            z-index: 10;
+            z-index: 5;
 
-            height: 82px;
+            height: 80px;
 
             display: flex;
             align-items: center;
@@ -150,7 +166,7 @@
                 rgba(255,255,255,.06);
 
             background:
-                rgba(5,5,7,.45);
+                rgba(5,5,7,.55);
 
             backdrop-filter:
                 blur(20px);
@@ -159,12 +175,13 @@
 
         .register-logo {
             color: #fff;
+
             text-decoration: none;
 
             font-size: 21px;
             font-weight: 900;
 
-            letter-spacing: .22em;
+            letter-spacing: .2em;
         }
 
 
@@ -174,7 +191,7 @@
                     110deg,
                     #fff,
                     #a98cff,
-                    #61dfff
+                    #5cddff
                 );
 
             -webkit-background-clip: text;
@@ -186,19 +203,14 @@
 
         .register-login {
             color:
-                rgba(255,255,255,.65);
+                rgba(255,255,255,.55);
 
             text-decoration: none;
 
-            font-size: 14px;
+            font-size: 13px;
 
-            transition: .25s ease;
-        }
-
-
-        .register-login strong {
-            color: #fff;
-            margin-left: 6px;
+            transition:
+                color .2s ease;
         }
 
 
@@ -207,34 +219,41 @@
         }
 
 
-        /* LAYOUT */
+        /* =========================
+           CONTAINER
+           ========================= */
 
         .register-wrapper {
             position: relative;
             z-index: 2;
 
+            width: min(
+                100% - 32px,
+                1100px
+            );
+
             min-height:
-                calc(100vh - 82px);
+                calc(100vh - 80px);
+
+            margin: auto;
 
             display: grid;
 
             grid-template-columns:
-                minmax(280px, .85fr)
-                minmax(420px, 520px);
-
-            gap: 80px;
+                .9fr 1.1fr;
 
             align-items: center;
 
-            max-width: 1200px;
+            gap: 70px;
 
-            margin: auto;
-
-            padding: 70px 35px;
+            padding:
+                60px 0;
         }
 
 
-        /* TEXTO ESQUERDO */
+        /* =========================
+           LADO ESQUERDO
+           ========================= */
 
         .register-intro {
             padding-bottom: 20px;
@@ -245,9 +264,10 @@
             display: inline-flex;
 
             align-items: center;
-            gap: 9px;
+            gap: 8px;
 
-            padding: 8px 13px;
+            padding:
+                8px 13px;
 
             border:
                 1px solid
@@ -259,12 +279,12 @@
                 rgba(255,255,255,.035);
 
             color:
-                rgba(255,255,255,.68);
+                rgba(255,255,255,.62);
 
-            font-size: 11px;
-            font-weight: 700;
+            font-size: 10px;
+            font-weight: 800;
 
-            letter-spacing: .14em;
+            letter-spacing: .16em;
         }
 
 
@@ -274,28 +294,24 @@
 
             border-radius: 50%;
 
-            background: #7c5cff;
+            background: #8061ff;
 
             box-shadow:
                 0 0 15px
-                rgba(124,92,255,.9);
+                rgba(128,97,255,.9);
         }
 
 
         .register-intro h1 {
             margin:
-                25px 0 18px;
-
-            max-width: 570px;
+                24px 0 18px;
 
             font-size:
-                clamp(44px, 5vw, 72px);
+                clamp(42px, 5vw, 66px);
 
             line-height: .96;
 
             letter-spacing: -.055em;
-
-            font-weight: 850;
         }
 
 
@@ -303,9 +319,9 @@
             background:
                 linear-gradient(
                     110deg,
-                    #ffffff 5%,
-                    #9e83ff 45%,
-                    #54dcff 95%
+                    #fff,
+                    #a58aff,
+                    #5adfff
                 );
 
             -webkit-background-clip: text;
@@ -315,26 +331,28 @@
         }
 
 
-        .register-intro p {
-            max-width: 500px;
-
-            color:
-                rgba(255,255,255,.48);
-
-            font-size: 16px;
-
-            line-height: 1.75;
+        .register-intro > p {
+            max-width: 480px;
 
             margin: 0;
+
+            color:
+                rgba(255,255,255,.43);
+
+            font-size: 15px;
+
+            line-height: 1.7;
         }
 
 
-        /* BENEFÍCIOS */
+        /* =========================
+           BENEFÍCIOS
+           ========================= */
 
         .register-benefits {
             display: grid;
 
-            gap: 14px;
+            gap: 13px;
 
             margin-top: 35px;
         }
@@ -342,108 +360,85 @@
 
         .benefit {
             display: flex;
-            align-items: center;
-            gap: 13px;
 
+            align-items: center;
+
+            gap: 13px;
+        }
+
+
+        .benefit-icon {
+            width: 38px;
+            height: 38px;
+
+            flex-shrink: 0;
+
+            display: grid;
+            place-items: center;
+
+            border-radius: 12px;
+
+            border:
+                1px solid
+                rgba(255,255,255,.08);
+
+            background:
+                rgba(255,255,255,.035);
+
+            color: #a78cff;
+
+            font-size: 15px;
+        }
+
+
+        .benefit span {
             color:
-                rgba(255,255,255,.7);
+                rgba(255,255,255,.58);
 
             font-size: 13px;
         }
 
 
-        .benefit-icon {
-            width: 34px;
-            height: 34px;
+        /* =========================
+           CARD
+           ========================= */
 
-            display: grid;
-            place-items: center;
+        .register-card {
+            width: 100%;
 
-            border-radius: 11px;
-
-            background:
-                rgba(124,92,255,.09);
+            padding: 34px;
 
             border:
                 1px solid
-                rgba(124,92,255,.18);
+                rgba(255,255,255,.09);
 
-            color: #a990ff;
-        }
-
-
-        /* CARD */
-
-        .register-card {
-            position: relative;
-
-            padding: 38px;
-
-            border-radius: 28px;
+            border-radius: 26px;
 
             background:
                 linear-gradient(
                     145deg,
-                    rgba(255,255,255,.075),
+                    rgba(255,255,255,.065),
                     rgba(255,255,255,.025)
                 );
 
-            border:
-                1px solid
-                rgba(255,255,255,.10);
-
             box-shadow:
-                0 35px 100px
-                rgba(0,0,0,.45),
-                inset 0 1px 0
-                rgba(255,255,255,.05);
+                0 30px 100px
+                rgba(0,0,0,.38);
 
             backdrop-filter:
-                blur(28px);
-        }
-
-
-        .register-card::before {
-            content: "";
-
-            position: absolute;
-
-            top: 0;
-            left: 12%;
-
-            width: 76%;
-            height: 1px;
-
-            background:
-                linear-gradient(
-                    90deg,
-                    transparent,
-                    rgba(160,130,255,.8),
-                    transparent
-                );
+                blur(25px);
         }
 
 
         .card-heading {
-            margin-bottom: 28px;
-        }
-
-
-        .card-heading small {
-            color: #9c83ff;
-
-            font-size: 10px;
-            font-weight: 800;
-
-            letter-spacing: .18em;
+            margin-bottom: 27px;
         }
 
 
         .card-heading h2 {
-            margin:
-                8px 0 7px;
+            margin: 0 0 7px;
 
-            font-size: 29px;
+            font-size: 24px;
 
             letter-spacing: -.035em;
         }
@@ -453,34 +448,36 @@
             margin: 0;
 
             color:
-                rgba(255,255,255,.42);
+                rgba(255,255,255,.38);
 
-            font-size: 13px;
-
-            line-height: 1.5;
+            font-size: 12px;
         }
 
 
-        /* FORM */
+        /* =========================
+           FORM
+           ========================= */
 
         .register-form {
             display: grid;
+
             gap: 17px;
         }
 
 
         .field {
             display: grid;
+
             gap: 8px;
         }
 
 
         .field label {
             color:
-                rgba(255,255,255,.72);
+                rgba(255,255,255,.58);
 
-            font-size: 12px;
-            font-weight: 650;
+            font-size: 11px;
+            font-weight: 700;
         }
 
 
@@ -492,14 +489,14 @@
         .field-icon {
             position: absolute;
 
-            left: 16px;
+            left: 15px;
             top: 50%;
 
             transform:
                 translateY(-50%);
 
             color:
-                rgba(255,255,255,.28);
+                rgba(255,255,255,.3);
 
             font-size: 14px;
 
@@ -510,67 +507,64 @@
         .field input {
             width: 100%;
 
-            height: 53px;
-
-            box-sizing: border-box;
+            height: 50px;
 
             padding:
-                0 46px;
-
-            border-radius: 15px;
+                0 15px 0 43px;
 
             border:
                 1px solid
-                rgba(255,255,255,.09);
+                rgba(255,255,255,.08);
+
+            border-radius: 13px;
 
             outline: none;
 
             background:
-                rgba(255,255,255,.035);
+                rgba(0,0,0,.18);
 
             color: #fff;
 
-            font-size: 14px;
+            font-size: 13px;
 
             transition:
-                border-color .25s ease,
-                background .25s ease,
-                box-shadow .25s ease;
+                border-color .2s ease,
+                box-shadow .2s ease,
+                background .2s ease;
         }
 
 
         .field input::placeholder {
             color:
-                rgba(255,255,255,.25);
+                rgba(255,255,255,.2);
         }
 
 
         .field input:focus {
             border-color:
-                rgba(137,110,255,.65);
+                rgba(137,107,255,.65);
 
             background:
-                rgba(255,255,255,.055);
+                rgba(0,0,0,.25);
 
             box-shadow:
                 0 0 0 4px
-                rgba(124,92,255,.08),
-                0 0 35px
-                rgba(124,92,255,.07);
+                rgba(117,85,255,.08);
         }
 
 
-        .password-toggle {
+        /* =========================
+           OLHO DA SENHA
+           ========================= */
+
+        .show-password {
             position: absolute;
 
-            right: 13px;
+            right: 12px;
             top: 50%;
 
             transform:
                 translateY(-50%);
-
-            width: 32px;
-            height: 32px;
 
             border: 0;
 
@@ -581,26 +575,30 @@
 
             cursor: pointer;
 
-            border-radius: 9px;
-
-            transition: .2s ease;
+            font-size: 13px;
         }
 
 
-        .password-toggle:hover {
+        .show-password:hover {
             color: #fff;
-            background:
-                rgba(255,255,255,.06);
         }
 
 
-        /* FORÇA DA SENHA */
+        .password-field {
+            padding-right: 45px !important;
+        }
+
+
+        /* =========================
+           FORÇA DA SENHA
+           ========================= */
 
         .password-strength {
             display: grid;
+
             gap: 7px;
 
-            margin-top: -3px;
+            margin-top: 1px;
         }
 
 
@@ -617,37 +615,56 @@
         .strength-bars span {
             height: 3px;
 
-            border-radius: 999px;
+            border-radius: 10px;
 
             background:
                 rgba(255,255,255,.08);
 
             transition:
-                background .25s ease;
+                background .2s ease;
         }
 
 
-        .strength-text {
-            font-size: 10px;
-
+        #strengthText {
             color:
-                rgba(255,255,255,.32);
+                rgba(255,255,255,.28);
+
+            font-size: 10px;
         }
 
 
-        /* TERMOS */
+        /* =========================
+           TERMOS
+           ========================= */
 
         .terms {
             display: flex;
 
             align-items: flex-start;
 
-            gap: 10px;
+            gap: 9px;
 
+            margin-top: 2px;
+        }
+
+
+        .terms input {
+            width: 15px;
+            height: 15px;
+
+            margin-top: 1px;
+
+            accent-color: #8061ff;
+
+            cursor: pointer;
+        }
+
+
+        .terms label {
             color:
-                rgba(255,255,255,.4);
+                rgba(255,255,255,.36);
 
-            font-size: 11px;
+            font-size: 10px;
 
             line-height: 1.5;
 
@@ -655,82 +672,44 @@
         }
 
 
-        .terms input {
-            margin-top: 2px;
-            accent-color: #7d61ff;
-        }
-
-
-        .terms a {
-            color:
-                rgba(174,153,255,.9);
-
-            text-decoration: none;
-        }
-
-
-        /* BOTÃO */
+        /* =========================
+           BOTÃO
+           ========================= */
 
         .register-submit {
-            position: relative;
-
             width: 100%;
-            height: 56px;
+
+            height: 53px;
+
+            margin-top: 4px;
 
             border: 0;
 
-            border-radius: 16px;
-
-            cursor: pointer;
-
-            overflow: hidden;
+            border-radius: 14px;
 
             background:
                 linear-gradient(
                     110deg,
                     #7655ff,
-                    #916fff 50%,
+                    #936eff,
                     #4fcfff
                 );
 
             color: #fff;
 
-            font-size: 14px;
+            font-size: 13px;
             font-weight: 800;
+
+            cursor: pointer;
 
             box-shadow:
                 0 14px 35px
-                rgba(101,75,255,.25);
+                rgba(105,76,255,.22);
 
             transition:
-                transform .25s ease,
-                box-shadow .25s ease;
-        }
-
-
-        .register-submit::before {
-            content: "";
-
-            position: absolute;
-
-            top: 0;
-            left: -120%;
-
-            width: 80%;
-            height: 100%;
-
-            background:
-                linear-gradient(
-                    90deg,
-                    transparent,
-                    rgba(255,255,255,.25),
-                    transparent
-                );
-
-            transform: skewX(-20deg);
-
-            transition:
-                left .7s ease;
+                transform .2s ease,
+                box-shadow .2s ease,
+                opacity .2s ease;
         }
 
 
@@ -740,86 +719,63 @@
 
             box-shadow:
                 0 18px 45px
-                rgba(101,75,255,.38);
+                rgba(105,76,255,.35);
         }
 
 
-        .register-submit:hover::before {
-            left: 140%;
+        .register-submit:disabled {
+            opacity: .55;
+
+            cursor: wait;
+
+            transform: none;
         }
 
 
-        .register-submit:active {
-            transform:
-                translateY(0);
-        }
+        /* =========================
+           RODAPÉ
+           ========================= */
 
-
-        /* RODAPÉ CARD */
-
-        .register-card-footer {
+        .register-footer {
             margin-top: 23px;
 
-            padding-top: 20px;
-
-            border-top:
-                1px solid
-                rgba(255,255,255,.06);
-
             text-align: center;
-        }
 
-
-        .register-card-footer span {
             color:
-                rgba(255,255,255,.35);
+                rgba(255,255,255,.3);
 
-            font-size: 12px;
+            font-size: 11px;
         }
 
 
-        .register-card-footer a {
-            color: #a990ff;
+        .register-footer a {
+            color: #a68cff;
 
             text-decoration: none;
 
             font-weight: 700;
-
-            margin-left: 5px;
         }
 
 
-        /* SEGURANÇA */
-
-        .security-line {
-            display: flex;
-
-            justify-content: center;
-            align-items: center;
-
-            gap: 7px;
-
-            margin-top: 18px;
-
-            color:
-                rgba(255,255,255,.25);
-
-            font-size: 10px;
+        .register-footer a:hover {
+            color: #c2b2ff;
         }
 
 
-        /* RESPONSIVO */
+        /* =========================
+           RESPONSIVO
+           ========================= */
 
-        @media (max-width: 900px) {
+        @media (max-width: 850px) {
 
             .register-wrapper {
                 grid-template-columns: 1fr;
 
-                max-width: 560px;
+                max-width: 550px;
 
                 gap: 40px;
 
-                padding-top: 50px;
+                padding-top: 45px;
             }
 
 
@@ -828,32 +784,34 @@
             }
 
 
-            .register-intro h1 {
-                margin-left: auto;
-                margin-right: auto;
-            }
-
-
-            .register-intro p {
+            .register-intro > p {
                 margin-left: auto;
                 margin-right: auto;
             }
 
 
             .register-benefits {
-                display: none;
+                max-width: 360px;
+
+                margin-left: auto;
+                margin-right: auto;
+
+                text-align: left;
             }
 
         }
 
 
-        @media (max-width: 560px) {
+        @media (max-width: 500px) {
 
             .register-navbar {
-                height: 70px;
-
                 padding:
-                    0 20px;
+                    0 18px;
+            }
+
+
+            .register-logo {
+                font-size: 17px;
             }
 
 
@@ -862,31 +820,24 @@
             }
 
 
-            .register-login strong {
-                display: none;
-            }
-
-
             .register-wrapper {
+                width:
+                    calc(100% - 22px);
+
                 padding:
-                    35px 16px 50px;
-            }
-
-
-            .register-intro h1 {
-                font-size: 45px;
+                    35px 0 45px;
             }
 
 
             .register-card {
-                padding: 25px 19px;
+                padding: 23px 18px;
 
-                border-radius: 22px;
+                border-radius: 21px;
             }
 
 
-            .card-heading h2 {
-                font-size: 25px;
+            .register-intro h1 {
+                font-size: 43px;
             }
 
         }
@@ -928,8 +879,7 @@
             href="login.html"
             class="register-login"
         >
-            Já possui uma conta?
-            <strong>Entrar →</strong>
+            Já tenho uma conta →
         </a>
 
     </header>
@@ -940,9 +890,10 @@
     <main class="register-wrapper">
 
 
-        <!-- LADO ESQUERDO -->
+        <!-- INTRO -->
 
         <section class="register-intro">
+
 
             <div class="register-badge">
 
@@ -955,9 +906,8 @@
 
             <h1>
 
-                Seu próximo
-                <span>descobrimento</span>
-                começa aqui.
+                Descubra
+                <span>do seu jeito.</span>
 
             </h1>
 
@@ -965,13 +915,15 @@
             <p>
 
                 Crie sua conta e deixe a Zenvora
-                entender seus interesses para encontrar
-                coisas que realmente combinam com você.
+                aprender o que combina com você.
+                Quanto mais você explora, melhores
+                ficam suas descobertas.
 
             </p>
 
 
             <div class="register-benefits">
+
 
                 <div class="benefit">
 
@@ -979,7 +931,9 @@
                         ✦
                     </div>
 
-                    Descobertas personalizadas
+                    <span>
+                        Recomendações personalizadas
+                    </span>
 
                 </div>
 
@@ -987,10 +941,12 @@
                 <div class="benefit">
 
                     <div class="benefit-icon">
-                        ◎
+                        ◈
                     </div>
 
-                    Experiências feitas para você
+                    <span>
+                        Descubra coisas que combinam com você
+                    </span>
 
                 </div>
 
@@ -1001,28 +957,27 @@
                         ↗
                     </div>
 
-                    Novas possibilidades todos os dias
+                    <span>
+                        Uma experiência que evolui com você
+                    </span>
 
                 </div>
+
 
             </div>
 
         </section>
 
 
-        <!-- CARD DE CADASTRO -->
+        <!-- CARD -->
 
         <section class="register-card">
 
 
             <div class="card-heading">
 
-                <small>
-                    CRIAR CONTA
-                </small>
-
                 <h2>
-                    Comece sua jornada.
+                    Criar sua conta
                 </h2>
 
                 <p>
@@ -1043,7 +998,7 @@
                 <div class="field">
 
                     <label for="name">
-                        Seu nome
+                        Nome
                     </label>
 
                     <div class="field-wrap">
@@ -1058,7 +1013,6 @@
                             name="name"
                             placeholder="Como podemos te chamar?"
                             autocomplete="name"
-                            minlength="2"
                             required
                         >
 
@@ -1106,23 +1060,23 @@
                     <div class="field-wrap">
 
                         <span class="field-icon">
-                            •
+                            ◆
                         </span>
 
                         <input
                             type="password"
                             id="password"
                             name="password"
-                            placeholder="Crie uma senha forte"
+                            class="password-field"
+                            placeholder="Crie uma senha"
                             autocomplete="new-password"
-                            minlength="6"
                             required
                         >
 
                         <button
                             type="button"
-                            class="password-toggle"
                             id="togglePassword"
+                            class="show-password"
                             aria-label="Mostrar senha"
                         >
                             ◉
@@ -1131,31 +1085,31 @@
                     </div>
 
 
-                    <div class="password-strength">
-
-                        <div class="strength-bars">
-
-                            <span></span>
-                            <span></span>
-                            <span></span>
-                            <span></span>
-
-                        </div>
+                    <div
+                        class="password-strength"
+                    >
 
                         <div
-                            class="strength-text"
-                            id="strengthText"
+                            class="strength-bars"
                         >
-                            Digite uma senha.
+
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                            <span></span>
 
                         </div>
+
+                        <span id="strengthText">
+                            Use pelo menos 6 caracteres.
+                        </span>
 
                     </div>
 
                 </div>
 
 
-                <!-- CONFIRMAR -->
+                <!-- CONFIRMAR SENHA -->
 
                 <div class="field">
 
@@ -1166,24 +1120,24 @@
                     <div class="field-wrap">
 
                         <span class="field-icon">
-                            •
+                            ◆
                         </span>
 
                         <input
                             type="password"
                             id="confirmPassword"
                             name="confirmPassword"
-                            placeholder="Digite novamente"
+                            class="password-field"
+                            placeholder="Digite a senha novamente"
                             autocomplete="new-password"
-                            minlength="6"
                             required
                         >
 
                         <button
                             type="button"
-                            class="password-toggle"
                             id="toggleConfirmPassword"
-                            aria-label="Mostrar confirmação"
+                            class="show-password"
+                            aria-label="Mostrar confirmação da senha"
                         >
                             ◉
                         </button>
@@ -1195,7 +1149,7 @@
 
                 <!-- TERMOS -->
 
-                <label class="terms">
+                <div class="terms">
 
                     <input
                         type="checkbox"
@@ -1203,17 +1157,15 @@
                         required
                     >
 
-                    <span>
+                    <label for="terms">
 
-                        Concordo com os
-                        <a href="#">
-                            termos de uso
-                        </a>
-                        da Zenvora.
+                        Concordo com os termos de uso
+                        e quero criar minha conta na
+                        Zenvora.
 
-                    </span>
+                    </label>
 
-                </label>
+                </div>
 
 
                 <!-- BOTÃO -->
@@ -1222,22 +1174,16 @@
                     type="submit"
                     class="register-submit auth-submit"
                 >
-
-                    Criar minha conta
-                    <span>→</span>
-
+                    Criar minha conta →
                 </button>
+
 
             </form>
 
 
-            <!-- LOGIN -->
+            <div class="register-footer">
 
-            <div class="register-card-footer">
-
-                <span>
-                    Já faz parte da Zenvora?
-                </span>
+                Já possui uma conta?
 
                 <a href="login.html">
                     Entrar
@@ -1246,145 +1192,37 @@
             </div>
 
 
-            <div class="security-line">
-
-                🔒 Seus dados ficam protegidos
-
-            </div>
-
         </section>
+
 
     </main>
 
 
-    <!-- FORÇA DA SENHA -->
+    <!-- SCRIPT DA PÁGINA -->
 
     <script>
 
-        const passwordInput =
-            document.getElementById("password");
-
-        const strengthBars =
-            document.querySelectorAll(
-                ".strength-bars span"
-            );
-
-        const strengthText =
-            document.getElementById(
-                "strengthText"
-            );
-
-
-        passwordInput.addEventListener(
-            "input",
-            () => {
-
-                const value =
-                    passwordInput.value;
-
-                let strength = 0;
-
-
-                if (value.length >= 6) {
-                    strength++;
-                }
-
-                if (value.length >= 9) {
-                    strength++;
-                }
-
-                if (
-                    /[A-Z]/.test(value) &&
-                    /[a-z]/.test(value)
-                ) {
-                    strength++;
-                }
-
-                if (
-                    /\d/.test(value) &&
-                    /[^A-Za-z0-9]/.test(value)
-                ) {
-                    strength++;
-                }
-
-
-                strengthBars.forEach(
-                    (bar, index) => {
-
-                        if (
-                            index < strength
-                        ) {
-
-                            bar.style.background =
-                                "linear-gradient(90deg,#7655ff,#59d9ff)";
-
-                        } else {
-
-                            bar.style.background =
-                                "rgba(255,255,255,.08)";
-
-                        }
-
-                    }
-                );
-
-
-                if (!value) {
-
-                    strengthText.textContent =
-                        "Digite uma senha.";
-
-                } else if (
-                    strength <= 1
-                ) {
-
-                    strengthText.textContent =
-                        "Senha fraca.";
-
-                } else if (
-                    strength === 2
-                ) {
-
-                    strengthText.textContent =
-                        "Senha razoável.";
-
-                } else if (
-                    strength === 3
-                ) {
-
-                    strengthText.textContent =
-                        "Senha boa.";
-
-                } else {
-
-                    strengthText.textContent =
-                        "Senha excelente.";
-
-                }
-
-            }
-        );
-
-
-        /* Mostrar senha */
+        /* =========================
+           MOSTRAR / ESCONDER SENHA
+           ========================= */
 
         function setupPasswordToggle(
-            inputId,
-            buttonId
+            buttonId,
+            inputId
         ) {
-
-            const input =
-                document.getElementById(
-                    inputId
-                );
 
             const button =
                 document.getElementById(
                     buttonId
                 );
 
+            const input =
+                document.getElementById(
+                    inputId
+                );
 
-            if (!input || !button) {
+
+            if (!button || !input) {
                 return;
             }
 
@@ -1421,20 +1259,154 @@
 
 
         setupPasswordToggle(
-            "password",
-            "togglePassword"
+            "togglePassword",
+            "password"
         );
 
 
         setupPasswordToggle(
-            "confirmPassword",
-            "toggleConfirmPassword"
+            "toggleConfirmPassword",
+            "confirmPassword"
         );
+
+
+        /* =========================
+           FORÇA DA SENHA
+           ========================= */
+
+        const password =
+            document.getElementById(
+                "password"
+            );
+
+
+        const strengthText =
+            document.getElementById(
+                "strengthText"
+            );
+
+
+        const strengthBars =
+            document.querySelectorAll(
+                ".strength-bars span"
+            );
+
+
+        if (
+            password &&
+            strengthText &&
+            strengthBars.length
+        ) {
+
+            password.addEventListener(
+                "input",
+                () => {
+
+                    const value =
+                        password.value;
+
+
+                    let strength =
+                        0;
+
+
+                    if (
+                        value.length >= 6
+                    ) {
+                        strength++;
+                    }
+
+
+                    if (
+                        value.length >= 8
+                    ) {
+                        strength++;
+                    }
+
+
+                    if (
+                        /[A-Z]/.test(value)
+                    ) {
+                        strength++;
+                    }
+
+
+                    if (
+                        /[0-9!@#$%^&*]/.test(
+                            value
+                        )
+                    ) {
+                        strength++;
+                    }
+
+
+                    strengthBars.forEach(
+                        (bar, index) => {
+
+                            if (
+                                index <
+                                strength
+                            ) {
+
+                                bar.style.background =
+                                    "linear-gradient(90deg,#7655ff,#5fdcff)";
+
+                            } else {
+
+                                bar.style.background =
+                                    "rgba(255,255,255,.08)";
+
+                            }
+
+                        }
+                    );
+
+
+                    if (!value) {
+
+                        strengthText.textContent =
+                            "Use pelo menos 6 caracteres.";
+
+                    } else if (
+                        strength <= 1
+                    ) {
+
+                        strengthText.textContent =
+                            "Senha fraca.";
+
+                    } else if (
+                        strength <= 2
+                    ) {
+
+                        strengthText.textContent =
+                            "Senha razoável.";
+
+                    } else if (
+                        strength === 3
+                    ) {
+
+                        strengthText.textContent =
+                            "Senha boa.";
+
+                    } else {
+
+                        strengthText.textContent =
+                            "Senha forte.";
+
+                    }
+
+                }
+            );
+
+        }
 
     </script>
 
 
+    <!-- SCRIPT PRINCIPAL -->
+
     <script src="script.js"></script>
+
 
 </body>
 
