@@ -1,0 +1,1060 @@
+```html
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="description"
+        content="Escolha seus interesses e personalize sua experiência na Zenvora."
+    >
+
+    <title>Seus interesses | Zenvora</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+
+            font-family:
+                Inter,
+                -apple-system,
+                BlinkMacSystemFont,
+                "Segoe UI",
+                sans-serif;
+
+            color: #fff;
+
+            background:
+                radial-gradient(
+                    circle at 15% 10%,
+                    rgba(119, 82, 255, .18),
+                    transparent 30%
+                ),
+                radial-gradient(
+                    circle at 85% 90%,
+                    rgba(0, 200, 255, .12),
+                    transparent 30%
+                ),
+                #050507;
+
+            overflow-x: hidden;
+        }
+
+
+        /* FUNDO */
+
+        .interest-background {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+
+        .interest-grid {
+            position: absolute;
+            inset: 0;
+
+            background-image:
+                linear-gradient(
+                    rgba(255,255,255,.025) 1px,
+                    transparent 1px
+                ),
+                linear-gradient(
+                    90deg,
+                    rgba(255,255,255,.025) 1px,
+                    transparent 1px
+                );
+
+            background-size: 55px 55px;
+
+            mask-image:
+                linear-gradient(
+                    to bottom,
+                    black,
+                    transparent
+                );
+        }
+
+
+        .interest-glow {
+            position: absolute;
+
+            width: 500px;
+            height: 500px;
+
+            border-radius: 50%;
+
+            filter: blur(120px);
+
+            opacity: .18;
+
+            animation:
+                interestFloat 10s ease-in-out infinite;
+        }
+
+
+        .interest-glow.one {
+            top: -280px;
+            left: -180px;
+
+            background: #7447ff;
+        }
+
+
+        .interest-glow.two {
+            right: -280px;
+            bottom: -280px;
+
+            background: #00cfff;
+
+            animation-delay: -5s;
+        }
+
+
+        @keyframes interestFloat {
+
+            0%,
+            100% {
+                transform: translate(0, 0);
+            }
+
+            50% {
+                transform: translate(
+                    25px,
+                    -30px
+                );
+            }
+
+        }
+
+
+        /* NAVBAR */
+
+        .interest-navbar {
+            position: relative;
+            z-index: 5;
+
+            height: 80px;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            padding: 0 5vw;
+
+            border-bottom:
+                1px solid
+                rgba(255,255,255,.06);
+
+            background:
+                rgba(5,5,7,.5);
+
+            backdrop-filter:
+                blur(20px);
+        }
+
+
+        .interest-logo {
+            color: #fff;
+
+            text-decoration: none;
+
+            font-size: 21px;
+            font-weight: 900;
+
+            letter-spacing: .2em;
+        }
+
+
+        .interest-logo span {
+            background:
+                linear-gradient(
+                    110deg,
+                    #fff,
+                    #a98cff,
+                    #5cddff
+                );
+
+            -webkit-background-clip: text;
+            background-clip: text;
+
+            color: transparent;
+        }
+
+
+        .step-counter {
+            color:
+                rgba(255,255,255,.4);
+
+            font-size: 12px;
+
+            letter-spacing: .08em;
+        }
+
+
+        .step-counter strong {
+            color: #fff;
+        }
+
+
+        /* CONTAINER */
+
+        .interest-container {
+            position: relative;
+            z-index: 2;
+
+            width: min(
+                100% - 32px,
+                1000px
+            );
+
+            margin: auto;
+
+            padding:
+                70px 0 60px;
+        }
+
+
+        /* CABEÇALHO */
+
+        .interest-heading {
+            text-align: center;
+
+            max-width: 700px;
+
+            margin: 0 auto 45px;
+        }
+
+
+        .interest-badge {
+            display: inline-flex;
+
+            align-items: center;
+            gap: 8px;
+
+            padding:
+                8px 13px;
+
+            border:
+                1px solid
+                rgba(255,255,255,.09);
+
+            border-radius: 999px;
+
+            background:
+                rgba(255,255,255,.035);
+
+            color:
+                rgba(255,255,255,.62);
+
+            font-size: 10px;
+            font-weight: 800;
+
+            letter-spacing: .16em;
+        }
+
+
+        .interest-badge i {
+            width: 7px;
+            height: 7px;
+
+            border-radius: 50%;
+
+            background: #8768ff;
+
+            box-shadow:
+                0 0 14px
+                rgba(135,104,255,.9);
+        }
+
+
+        .interest-heading h1 {
+            margin:
+                22px 0 14px;
+
+            font-size:
+                clamp(38px, 6vw, 62px);
+
+            line-height: .98;
+
+            letter-spacing: -.055em;
+        }
+
+
+        .interest-heading h1 span {
+            background:
+                linear-gradient(
+                    110deg,
+                    #fff,
+                    #a58aff,
+                    #59ddff
+                );
+
+            -webkit-background-clip: text;
+            background-clip: text;
+
+            color: transparent;
+        }
+
+
+        .interest-heading p {
+            margin: 0 auto;
+
+            max-width: 590px;
+
+            color:
+                rgba(255,255,255,.43);
+
+            line-height: 1.7;
+
+            font-size: 15px;
+        }
+
+
+        /* GRID */
+
+        .interest-grid-cards {
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            gap: 15px;
+        }
+
+
+        .interest-card {
+            position: relative;
+
+            min-height: 175px;
+
+            padding: 24px;
+
+            border:
+                1px solid
+                rgba(255,255,255,.08);
+
+            border-radius: 22px;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    rgba(255,255,255,.065),
+                    rgba(255,255,255,.025)
+                );
+
+            cursor: pointer;
+
+            overflow: hidden;
+
+            transition:
+                transform .25s ease,
+                border-color .25s ease,
+                background .25s ease,
+                box-shadow .25s ease;
+        }
+
+
+        .interest-card::before {
+            content: "";
+
+            position: absolute;
+
+            inset: 0;
+
+            background:
+                radial-gradient(
+                    circle at 80% 15%,
+                    rgba(130,100,255,.13),
+                    transparent 38%
+                );
+
+            opacity: 0;
+
+            transition: opacity .25s ease;
+        }
+
+
+        .interest-card:hover {
+            transform:
+                translateY(-4px);
+
+            border-color:
+                rgba(151,128,255,.32);
+
+            box-shadow:
+                0 20px 55px
+                rgba(0,0,0,.25);
+        }
+
+
+        .interest-card:hover::before {
+            opacity: 1;
+        }
+
+
+        .interest-card.selected {
+            border-color:
+                rgba(142,116,255,.75);
+
+            background:
+                linear-gradient(
+                    145deg,
+                    rgba(124,92,255,.17),
+                    rgba(255,255,255,.035)
+                );
+
+            box-shadow:
+                0 15px 50px
+                rgba(105,75,255,.15);
+        }
+
+
+        .interest-card.selected::after {
+            content: "✓";
+
+            position: absolute;
+
+            top: 16px;
+            right: 16px;
+
+            width: 27px;
+            height: 27px;
+
+            display: grid;
+            place-items: center;
+
+            border-radius: 50%;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #7655ff,
+                    #5fdcff
+                );
+
+            color: #fff;
+
+            font-size: 12px;
+            font-weight: 900;
+
+            box-shadow:
+                0 5px 20px
+                rgba(111,82,255,.4);
+        }
+
+
+        .interest-icon {
+            position: relative;
+            z-index: 1;
+
+            width: 48px;
+            height: 48px;
+
+            display: grid;
+            place-items: center;
+
+            margin-bottom: 22px;
+
+            border-radius: 15px;
+
+            background:
+                rgba(255,255,255,.05);
+
+            border:
+                1px solid
+                rgba(255,255,255,.08);
+
+            font-size: 21px;
+        }
+
+
+        .interest-card h3 {
+            position: relative;
+            z-index: 1;
+
+            margin: 0 0 7px;
+
+            font-size: 17px;
+
+            letter-spacing: -.02em;
+        }
+
+
+        .interest-card p {
+            position: relative;
+            z-index: 1;
+
+            margin: 0;
+
+            color:
+                rgba(255,255,255,.38);
+
+            font-size: 12px;
+
+            line-height: 1.5;
+        }
+
+
+        /* BOTÃO */
+
+        .interest-actions {
+            display: flex;
+
+            justify-content: center;
+
+            margin-top: 35px;
+        }
+
+
+        .continue-button {
+            position: relative;
+
+            width: min(
+                100%,
+                360px
+            );
+
+            height: 56px;
+
+            border: 0;
+
+            border-radius: 16px;
+
+            color: #fff;
+
+            font-size: 14px;
+            font-weight: 800;
+
+            background:
+                linear-gradient(
+                    110deg,
+                    #7655ff,
+                    #916fff,
+                    #4fcfff
+                );
+
+            box-shadow:
+                0 15px 40px
+                rgba(101,75,255,.25);
+
+            cursor: pointer;
+
+            transition:
+                transform .25s ease,
+                box-shadow .25s ease,
+                opacity .25s ease;
+        }
+
+
+        .continue-button:hover {
+            transform:
+                translateY(-2px);
+
+            box-shadow:
+                0 20px 50px
+                rgba(101,75,255,.4);
+        }
+
+
+        .continue-button:disabled {
+            opacity: .4;
+
+            cursor: not-allowed;
+
+            transform: none;
+
+            box-shadow: none;
+        }
+
+
+        /* CONTADOR */
+
+        .selected-count {
+            text-align: center;
+
+            margin-top: 14px;
+
+            color:
+                rgba(255,255,255,.28);
+
+            font-size: 11px;
+        }
+
+
+        .selected-count strong {
+            color:
+                rgba(255,255,255,.65);
+        }
+
+
+        /* RESPONSIVO */
+
+        @media (max-width: 760px) {
+
+            .interest-grid-cards {
+                grid-template-columns:
+                    repeat(2, 1fr);
+            }
+
+            .interest-container {
+                padding-top: 50px;
+            }
+
+        }
+
+
+        @media (max-width: 500px) {
+
+            .interest-navbar {
+                padding:
+                    0 18px;
+            }
+
+
+            .interest-logo {
+                font-size: 17px;
+            }
+
+
+            .step-counter {
+                font-size: 10px;
+            }
+
+
+            .interest-grid-cards {
+                grid-template-columns: 1fr;
+            }
+
+
+            .interest-card {
+                min-height: 150px;
+            }
+
+
+            .interest-heading h1 {
+                font-size: 42px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- FUNDO -->
+
+    <div class="interest-background">
+
+        <div class="interest-grid"></div>
+
+        <div class="interest-glow one"></div>
+
+        <div class="interest-glow two"></div>
+
+    </div>
+
+
+    <!-- NAVBAR -->
+
+    <header class="interest-navbar">
+
+        <a
+            href="index.html"
+            class="interest-logo"
+        >
+            <span>ZENVORA</span>
+        </a>
+
+
+        <div class="step-counter">
+
+            PASSO
+            <strong>1</strong>
+            DE 1
+
+        </div>
+
+    </header>
+
+
+    <!-- CONTEÚDO -->
+
+    <main class="interest-container">
+
+
+        <section class="interest-heading">
+
+            <div class="interest-badge">
+
+                <i></i>
+
+                PERSONALIZE SUA EXPERIÊNCIA
+
+            </div>
+
+
+            <h1>
+
+                O que faz você
+                <span>clicar?</span>
+
+            </h1>
+
+
+            <p>
+
+                Escolha os assuntos que mais despertam
+                seu interesse. A Zenvora vai usar suas
+                escolhas para encontrar recomendações
+                cada vez mais relevantes.
+
+            </p>
+
+        </section>
+
+
+        <!-- INTERESSES -->
+
+        <section class="interest-grid-cards">
+
+
+            <article
+                class="interest-card"
+                data-interest="Tecnologia"
+            >
+
+                <div class="interest-icon">
+                    ◈
+                </div>
+
+                <h3>
+                    Tecnologia
+                </h3>
+
+                <p>
+                    IA, aplicativos, inovação e futuro.
+                </p>
+
+            </article>
+
+
+            <article
+                class="interest-card"
+                data-interest="Games"
+            >
+
+                <div class="interest-icon">
+                    ◉
+                </div>
+
+                <h3>
+                    Games
+                </h3>
+
+                <p>
+                    Jogos, consoles, Roblox e novidades.
+                </p>
+
+            </article>
+
+
+            <article
+                class="interest-card"
+                data-interest="Música"
+            >
+
+                <div class="interest-icon">
+                    ♪
+                </div>
+
+                <h3>
+                    Música
+                </h3>
+
+                <p>
+                    Artistas, sons, playlists e estilos.
+                </p>
+
+            </article>
+
+
+            <article
+                class="interest-card"
+                data-interest="Moda"
+            >
+
+                <div class="interest-icon">
+                    ◇
+                </div>
+
+                <h3>
+                    Moda
+                </h3>
+
+                <p>
+                    Estilo, tendências e novidades.
+                </p>
+
+            </article>
+
+
+            <article
+                class="interest-card"
+                data-interest="Negócios"
+            >
+
+                <div class="interest-icon">
+                    ↗
+                </div>
+
+                <h3>
+                    Negócios
+                </h3>
+
+                <p>
+                    Ideias, startups e oportunidades.
+                </p>
+
+            </article>
+
+
+            <article
+                class="interest-card"
+                data-interest="Criatividade"
+            >
+
+                <div class="interest-icon">
+                    ✦
+                </div>
+
+                <h3>
+                    Criatividade
+                </h3>
+
+                <p>
+                    Design, criação e novas ideias.
+                </p>
+
+            </article>
+
+
+        </section>
+
+
+        <!-- AÇÃO -->
+
+        <div class="interest-actions">
+
+            <button
+                id="continueInterests"
+                class="continue-button"
+                disabled
+            >
+                Continuar →
+            </button>
+
+        </div>
+
+
+        <div class="selected-count">
+
+            <strong id="selectedCount">
+                0
+            </strong>
+
+            interesses selecionados
+
+        </div>
+
+    </main>
+
+
+    <script>
+
+        const cards =
+            document.querySelectorAll(
+                ".interest-card"
+            );
+
+
+        const continueButton =
+            document.getElementById(
+                "continueInterests"
+            );
+
+
+        const selectedCount =
+            document.getElementById(
+                "selectedCount"
+            );
+
+
+        let selected =
+            [];
+
+
+        /*
+         * Selecionar interesses
+         */
+
+        cards.forEach(
+            card => {
+
+                card.addEventListener(
+                    "click",
+                    () => {
+
+                        const interest =
+                            card.dataset.interest;
+
+
+                        if (
+                            selected.includes(
+                                interest
+                            )
+                        ) {
+
+                            selected =
+                                selected.filter(
+                                    item =>
+                                        item !==
+                                        interest
+                                );
+
+                            card.classList.remove(
+                                "selected"
+                            );
+
+                        } else {
+
+                            selected.push(
+                                interest
+                            );
+
+                            card.classList.add(
+                                "selected"
+                            );
+
+                        }
+
+
+                        updateSelection();
+
+                    }
+                );
+
+            }
+        );
+
+
+        /*
+         * Atualizar contador
+         */
+
+        function updateSelection() {
+
+            selectedCount.textContent =
+                selected.length;
+
+
+            continueButton.disabled =
+                selected.length === 0;
+
+        }
+
+
+        /*
+         * Continuar
+         */
+
+        continueButton.addEventListener(
+            "click",
+            () => {
+
+                if (!selected.length) {
+                    return;
+                }
+
+
+                /*
+                 * Salva as preferências
+                 */
+
+                localStorage.setItem(
+                    "zenvora_preferences",
+                    JSON.stringify(
+                        selected.reduce(
+                            (preferences, category) => {
+
+                                preferences[
+                                    category
+                                ] = 3;
+
+                                return preferences;
+
+                            },
+                            {}
+                        )
+                    )
+                );
+
+
+                /*
+                 * Marca que o usuário
+                 * já escolheu interesses.
+                 */
+
+                localStorage.setItem(
+                    "zenvora_onboarding",
+                    "completed"
+                );
+
+
+                continueButton.disabled =
+                    true;
+
+                continueButton.textContent =
+                    "Preparando sua Zenvora...";
+
+
+                setTimeout(
+                    () => {
+
+                        window.location.href =
+                            "app.html";
+
+                    },
+                    700
+                );
+
+            }
+        );
+
+    </script>
+
+
+</body>
+
+</html>
+```
