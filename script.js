@@ -1,11 +1,10 @@
 /* =========================================================
-   ZENVORA
-   Sistema principal
+   ZENVORA — SCRIPT PRINCIPAL
    ========================================================= */
 
 
 /* =========================================================
-   UTILIDADES
+   UTILITÁRIOS
    ========================================================= */
 
 function getUser() {
@@ -46,180 +45,389 @@ function saveSavedItems(items) {
 }
 
 
-function showMessage(message) {
-
-    let toast =
-        document.querySelector(".zenvora-toast");
-
-    if (!toast) {
-
-        toast =
-            document.createElement("div");
-
-        toast.className =
-            "zenvora-toast";
-
-        document.body.appendChild(toast);
-
-        toast.style.position = "fixed";
-        toast.style.bottom = "25px";
-        toast.style.left = "50%";
-        toast.style.transform =
-            "translateX(-50%) translateY(20px)";
-        toast.style.padding =
-            "13px 20px";
-        toast.style.borderRadius =
-            "14px";
-        toast.style.background =
-            "rgba(20,20,30,.95)";
-        toast.style.color =
-            "#fff";
-        toast.style.border =
-            "1px solid rgba(255,255,255,.12)";
-        toast.style.boxShadow =
-            "0 15px 40px rgba(0,0,0,.35)";
-        toast.style.zIndex =
-            "9999";
-        toast.style.opacity =
-            "0";
-        toast.style.transition =
-            "all .3s ease";
-        toast.style.fontSize =
-            "14px";
+function getPreferences() {
+    try {
+        return JSON.parse(
+            localStorage.getItem(
+                "zenvora_preferences"
+            )
+        ) || {};
+    } catch {
+        return {};
     }
+}
 
-    toast.textContent = message;
 
-    requestAnimationFrame(() => {
-
-        toast.style.opacity = "1";
-
-        toast.style.transform =
-            "translateX(-50%) translateY(0)";
-
-    });
-
-    clearTimeout(
-        window.zenvoraToastTimeout
+function savePreferences(preferences) {
+    localStorage.setItem(
+        "zenvora_preferences",
+        JSON.stringify(preferences)
     );
-
-    window.zenvoraToastTimeout =
-        setTimeout(() => {
-
-            toast.style.opacity = "0";
-
-            toast.style.transform =
-                "translateX(-50%) translateY(20px)";
-
-        }, 2500);
 }
 
 
 /* =========================================================
-   PROTEÇÃO DA PÁGINA DO APP
+   TOAST
+   ========================================================= */
+
+function showMessage(message) {
+
+    const oldMessage =
+        document.querySelector(
+            ".zenvora-toast"
+        );
+
+    if (oldMessage) {
+        oldMessage.remove();
+    }
+
+
+    const toast =
+        document.createElement("div");
+
+    toast.className =
+        "zenvora-toast";
+
+    toast.textContent =
+        message;
+
+
+    toast.style.position =
+        "fixed";
+
+    toast.style.bottom =
+        "25px";
+
+    toast.style.right =
+        "25px";
+
+    toast.style.zIndex =
+        "99999";
+
+    toast.style.padding =
+        "13px 18px";
+
+    toast.style.borderRadius =
+        "14px";
+
+    toast.style.background =
+        "rgba(20,20,28,.92)";
+
+    toast.style.border =
+        "1px solid rgba(255,255,255,.12)";
+
+    toast.style.color =
+        "#fff";
+
+    toast.style.fontSize =
+        "13px";
+
+    toast.style.boxShadow =
+        "0 15px 40px rgba(0,0,0,.35)";
+
+    toast.style.backdropFilter =
+        "blur(15px)";
+
+    toast.style.opacity =
+        "0";
+
+    toast.style.transform =
+        "translateY(10px)";
+
+    toast.style.transition =
+        "all .25s ease";
+
+
+    document.body.appendChild(
+        toast
+    );
+
+
+    requestAnimationFrame(() => {
+
+        toast.style.opacity =
+            "1";
+
+        toast.style.transform =
+            "translateY(0)";
+
+    });
+
+
+    setTimeout(() => {
+
+        toast.style.opacity =
+            "0";
+
+        toast.style.transform =
+            "translateY(10px)";
+
+        setTimeout(
+            () => toast.remove(),
+            300
+        );
+
+    }, 2500);
+}
+
+
+/* =========================================================
+   PROTEÇÃO DAS PÁGINAS
    ========================================================= */
 
 function protectApp() {
 
-    if (!document.body.classList.contains("app-page")) {
-        return;
+    const user =
+        getUser();
+
+    const currentPage =
+        window.location.pathname
+            .split("/")
+            .pop();
+
+
+    if (
+        currentPage === "app.html" &&
+        !user
+    ) {
+
+        window.location.href =
+            "login.html";
+
+        return false;
     }
 
-    const user = getUser();
 
-    if (!user) {
-        window.location.href = "login.html";
-        return;
-    }
-
-    return user;
+    return true;
 }
 
 
 /* =========================================================
-   DADOS DA ZENVORA
+   DADOS DE DESCOBERTA
    ========================================================= */
 
 const discoveries = [
 
     {
         id: 1,
+        title: "Ferramentas de IA que estão mudando a internet",
         category: "Tecnologia",
-        title: "O futuro da inteligência artificial",
         description:
-            "Descubra tecnologias que estão mudando a forma como criamos, trabalhamos e aprendemos.",
-        score: 94
-    },
-
-    {
-        id: 2,
-        category: "Games",
-        title: "Jogos que você deveria conhecer",
-        description:
-            "Novos mundos, experiências diferentes e jogos que podem virar seus próximos favoritos.",
+            "Descubra novas ferramentas de inteligência artificial.",
         score: 91
     },
 
     {
-        id: 3,
-        category: "Negócios",
-        title: "Ideias para começar algo novo",
+        id: 2,
+        title: "Os games que estão bombando agora",
+        category: "Games",
         description:
-            "Projetos, oportunidades e ideias para quem quer construir alguma coisa própria.",
-        score: 88
+            "Confira jogos que estão ganhando cada vez mais atenção.",
+        score: 87
+    },
+
+    {
+        id: 3,
+        title: "Músicas para colocar na sua playlist",
+        category: "Música",
+        description:
+            "Novos sons e artistas para você descobrir.",
+        score: 84
     },
 
     {
         id: 4,
-        category: "Música",
-        title: "Sons que podem virar seus favoritos",
-        description:
-            "Artistas, músicas e estilos diferentes para você descobrir algo novo.",
-        score: 86
-    },
-
-    {
-        id: 5,
+        title: "Tendências de moda para ficar de olho",
         category: "Moda",
-        title: "Tendências que estão chegando",
         description:
-            "Estilos, peças e tendências que estão ganhando espaço.",
+            "Estilos e tendências que estão aparecendo agora.",
         score: 82
     },
 
     {
-        id: 6,
-        category: "Tecnologia",
-        title: "Aplicativos que facilitam sua vida",
+        id: 5,
+        title: "Ideias de negócios para começar pequeno",
+        category: "Negócios",
         description:
-            "Ferramentas úteis que podem economizar seu tempo todos os dias.",
-        score: 79
-    }
+            "Ideias, oportunidades e projetos para explorar.",
+        score: 89
+    },
 
+    {
+        id: 6,
+        title: "Designs que podem inspirar seu próximo projeto",
+        category: "Design",
+        description:
+            "Referências criativas para novos projetos.",
+        score: 86
+    },
+
+    {
+        id: 7,
+        title: "Esportes e histórias que merecem atenção",
+        category: "Esportes",
+        description:
+            "Notícias, histórias e conteúdos esportivos.",
+        score: 80
+    },
+
+    {
+        id: 8,
+        title: "Filmes e séries para descobrir",
+        category: "Filmes & Séries",
+        description:
+            "Produções que podem entrar na sua próxima lista.",
+        score: 88
+    }
 ];
 
 
 /* =========================================================
-   INICIALIZAÇÃO
+   PERSONALIZAÇÃO
    ========================================================= */
 
-document.addEventListener(
-    "DOMContentLoaded",
-    () => {
+function registerInterest(category) {
 
-        const user =
-            protectApp();
-
-        setupGlobalFeatures();
-
-        setupLogin();
-
-        setupRegister();
-
-        setupApp(user);
-
+    if (!category) {
+        return;
     }
-);
+
+
+    const preferences =
+        getPreferences();
+
+
+    if (!preferences[category]) {
+        preferences[category] = 0;
+    }
+
+
+    preferences[category] += 1;
+
+
+    savePreferences(
+        preferences
+    );
+}
+
+
+function getFavoriteCategory() {
+
+    const preferences =
+        getPreferences();
+
+
+    const entries =
+        Object.entries(
+            preferences
+        );
+
+
+    if (!entries.length) {
+        return null;
+    }
+
+
+    entries.sort(
+        (a, b) =>
+            b[1] - a[1]
+    );
+
+
+    return entries[0][0];
+}
+
+
+function getPersonalizedScore(item) {
+
+    const preferences =
+        getPreferences();
+
+
+    const interest =
+        preferences[
+            item.category
+        ] || 0;
+
+
+    /*
+     * Cada interesse aumenta
+     * a relevância daquela categoria.
+     */
+
+    const bonus =
+        Math.min(
+            interest * 3,
+            18
+        );
+
+
+    return Math.min(
+        99,
+        item.score + bonus
+    );
+}
+
+
+function personalizeRecommendations(
+    items
+) {
+
+    const preferences =
+        getPreferences();
+
+
+    return [...items].sort(
+        (a, b) => {
+
+            const scoreA =
+                getPersonalizedScore(a);
+
+            const scoreB =
+                getPersonalizedScore(b);
+
+
+            /*
+             * Se os scores forem diferentes,
+             * mostra primeiro o mais relevante.
+             */
+
+            if (
+                scoreA !== scoreB
+            ) {
+
+                return (
+                    scoreB -
+                    scoreA
+                );
+
+            }
+
+
+            /*
+             * Caso contrário,
+             * usa a preferência como
+             * segundo critério.
+             */
+
+            const interestA =
+                preferences[
+                    a.category
+                ] || 0;
+
+            const interestB =
+                preferences[
+                    b.category
+                ] || 0;
+
+
+            return (
+                interestB -
+                interestA
+            );
+        }
+    );
+}
 
 
 /* =========================================================
@@ -233,149 +441,103 @@ function setupLogin() {
             "loginForm"
         );
 
+
     if (!form) {
         return;
     }
 
-    const emailInput =
-        document.getElementById(
-            "email"
-        );
-
-    const passwordInput =
-        document.getElementById(
-            "password"
-        );
-
-    const togglePassword =
-        document.getElementById(
-            "togglePassword"
-        );
-
-
-    /* Mostrar senha */
-
-    if (
-        togglePassword &&
-        passwordInput
-    ) {
-
-        togglePassword.addEventListener(
-            "click",
-            () => {
-
-                if (
-                    passwordInput.type ===
-                    "password"
-                ) {
-
-                    passwordInput.type =
-                        "text";
-
-                    togglePassword.textContent =
-                        "◌";
-
-                } else {
-
-                    passwordInput.type =
-                        "password";
-
-                    togglePassword.textContent =
-                        "◉";
-
-                }
-
-            }
-        );
-
-    }
-
-
-    /* Login */
 
     form.addEventListener(
         "submit",
-        (event) => {
+        event => {
 
             event.preventDefault();
 
+
             const email =
-                emailInput.value
+                document
+                    .getElementById("email")
+                    ?.value
                     .trim()
                     .toLowerCase();
 
+
             const password =
-                passwordInput.value;
+                document
+                    .getElementById("password")
+                    ?.value;
 
 
-            if (!email || !password) {
+            if (
+                !email ||
+                !password
+            ) {
 
                 showMessage(
                     "Preencha todos os campos."
                 );
 
                 return;
-
             }
 
 
-            /*
-                MODO DEMO LOCAL
-
-                Como o projeto está hospedado
-                somente no GitHub Pages,
-                ainda não existe um servidor
-                seguro para autenticação.
-
-                Por enquanto usamos os dados
-                armazenados no navegador.
-            */
-
-            const storedUser =
+            const user =
                 getUser();
 
 
-            if (
-                storedUser &&
-                storedUser.email === email
-            ) {
+            if (!user) {
 
-                const button =
-                    form.querySelector(
-                        ".auth-submit"
-                    );
-
-                if (button) {
-
-                    button.disabled =
-                        true;
-
-                    button.innerHTML =
-                        "<span>Entrando...</span>";
-
-                }
-
-                setTimeout(
-                    () => {
-
-                        window.location.href =
-                            "app.html";
-
-                    },
-                    700
+                showMessage(
+                    "Nenhuma conta encontrada. Crie sua conta primeiro."
                 );
 
                 return;
             }
 
 
-            showMessage(
-                "Conta não encontrada. Crie sua conta primeiro."
-            );
+            if (
+                user.email !== email
+            ) {
+
+                showMessage(
+                    "E-mail não encontrado."
+                );
+
+                return;
+            }
+
+
+            /*
+             * DEMO:
+             * O GitHub Pages não possui backend.
+             * A senha não é validada por servidor.
+             */
+
+            const submitButton =
+                form.querySelector(
+                    ".auth-submit"
+                );
+
+
+            if (submitButton) {
+
+                submitButton.disabled =
+                    true;
+
+                submitButton.textContent =
+                    "Entrando...";
+            }
+
+
+            setTimeout(() => {
+
+                window.location.href =
+                    "app.html";
+
+            }, 500);
 
         }
     );
-
 }
 
 
@@ -390,165 +552,66 @@ function setupRegister() {
             "registerForm"
         );
 
+
     if (!form) {
         return;
     }
 
 
-    const nameInput =
-        document.getElementById(
-            "name"
-        );
-
-    const emailInput =
-        document.getElementById(
-            "email"
-        );
-
-    const passwordInput =
-        document.getElementById(
-            "password"
-        );
-
-    const confirmPasswordInput =
-        document.getElementById(
-            "confirmPassword"
-        );
-
-    const togglePassword =
-        document.getElementById(
-            "togglePassword"
-        );
-
-    const toggleConfirmPassword =
-        document.getElementById(
-            "toggleConfirmPassword"
-        );
-
-
-    /* Mostrar senha */
-
-    if (
-        togglePassword &&
-        passwordInput
-    ) {
-
-        togglePassword.addEventListener(
-            "click",
-            () => {
-
-                if (
-                    passwordInput.type ===
-                    "password"
-                ) {
-
-                    passwordInput.type =
-                        "text";
-
-                    togglePassword.textContent =
-                        "◌";
-
-                } else {
-
-                    passwordInput.type =
-                        "password";
-
-                    togglePassword.textContent =
-                        "◉";
-
-                }
-
-            }
-        );
-
-    }
-
-
-    /* Mostrar confirmação */
-
-    if (
-        toggleConfirmPassword &&
-        confirmPasswordInput
-    ) {
-
-        toggleConfirmPassword.addEventListener(
-            "click",
-            () => {
-
-                if (
-                    confirmPasswordInput.type ===
-                    "password"
-                ) {
-
-                    confirmPasswordInput.type =
-                        "text";
-
-                    toggleConfirmPassword.textContent =
-                        "◌";
-
-                } else {
-
-                    confirmPasswordInput.type =
-                        "password";
-
-                    toggleConfirmPassword.textContent =
-                        "◉";
-
-                }
-
-            }
-        );
-
-    }
-
-
-    /* Cadastro */
-
     form.addEventListener(
         "submit",
-        (event) => {
+        event => {
 
             event.preventDefault();
 
 
             const name =
-                nameInput.value.trim();
+                document
+                    .getElementById("name")
+                    ?.value
+                    .trim();
+
 
             const email =
-                emailInput.value
+                document
+                    .getElementById("email")
+                    ?.value
                     .trim()
                     .toLowerCase();
 
+
             const password =
-                passwordInput.value;
+                document
+                    .getElementById("password")
+                    ?.value;
+
 
             const confirmPassword =
-                confirmPasswordInput.value;
+                document
+                    .getElementById(
+                        "confirmPassword"
+                    )
+                    ?.value;
 
 
-            if (name.length < 2) {
-
-                showMessage(
-                    "Digite um nome válido."
+            const terms =
+                document.getElementById(
+                    "terms"
                 );
 
-                nameInput.focus();
 
-                return;
-
-            }
-
-
-            if (password.length < 6) {
+            if (
+                !name ||
+                !email ||
+                !password ||
+                !confirmPassword
+            ) {
 
                 showMessage(
-                    "A senha precisa ter pelo menos 6 caracteres."
+                    "Preencha todos os campos."
                 );
 
-                passwordInput.focus();
-
                 return;
-
             }
 
 
@@ -558,13 +621,35 @@ function setupRegister() {
             ) {
 
                 showMessage(
-                    "As senhas não são iguais."
+                    "As senhas não coincidem."
                 );
 
-                confirmPasswordInput.focus();
+                return;
+            }
+
+
+            if (
+                password.length < 6
+            ) {
+
+                showMessage(
+                    "A senha precisa ter pelo menos 6 caracteres."
+                );
 
                 return;
+            }
 
+
+            if (
+                terms &&
+                !terms.checked
+            ) {
+
+                showMessage(
+                    "Aceite os termos para continuar."
+                );
+
+                return;
             }
 
 
@@ -575,7 +660,8 @@ function setupRegister() {
                 email: email,
 
                 createdAt:
-                    new Date().toISOString(),
+                    new Date()
+                        .toISOString(),
 
                 interests: [],
 
@@ -587,36 +673,51 @@ function setupRegister() {
             saveUser(user);
 
 
-            const button =
+            /*
+             * Limpa preferências antigas
+             * para uma nova conta.
+             */
+
+            localStorage.removeItem(
+                "zenvora_preferences"
+            );
+
+            localStorage.removeItem(
+                "zenvora_onboarding"
+            );
+
+
+            const submitButton =
                 form.querySelector(
-                    ".auth-submit"
+                    ".register-submit"
                 );
 
 
-            if (button) {
+            if (submitButton) {
 
-                button.disabled =
+                submitButton.disabled =
                     true;
 
-                button.innerHTML =
-                    "<span>Conta criada ✓</span>";
+                submitButton.textContent =
+                    "Criando sua conta...";
 
             }
 
 
-            setTimeout(
-                () => {
+            /*
+             * AQUI está a mudança:
+             * cadastro → interesses
+             */
 
-                    window.location.href =
-                        "app.html";
+            setTimeout(() => {
 
-                },
-                700
-            );
+                window.location.href =
+                    "interesses.html";
+
+            }, 500);
 
         }
     );
-
 }
 
 
@@ -626,17 +727,14 @@ function setupRegister() {
 
 function setupApp(user) {
 
-    if (
-        !user ||
-        !document.body.classList.contains(
-            "app-page"
-        )
-    ) {
+    if (!user) {
         return;
     }
 
 
-    setupUserInterface(user);
+    setupUserInterface(
+        user
+    );
 
     setupCategories();
 
@@ -661,33 +759,13 @@ function setupApp(user) {
    INTERFACE DO USUÁRIO
    ========================================================= */
 
-function setupUserInterface(user) {
-
-    const firstName =
-        user.name
-            ? user.name.split(" ")[0]
-            : "Usuário";
-
-
-    const welcomeElements =
-        document.querySelectorAll(
-            "[data-user-name]"
-        );
-
-
-    welcomeElements.forEach(
-        element => {
-
-            element.textContent =
-                firstName;
-
-        }
-    );
-
+function setupUserInterface(
+    user
+) {
 
     const nameElements =
         document.querySelectorAll(
-            "[data-user-full-name]"
+            ".user-name, .welcome-name"
         );
 
 
@@ -701,50 +779,46 @@ function setupUserInterface(user) {
     );
 
 
-    const emailElements =
-        document.querySelectorAll(
-            "[data-user-email]"
-        );
-
-
-    emailElements.forEach(
-        element => {
-
-            element.textContent =
-                user.email;
-
-        }
-    );
-
-
-    const avatarElements =
-        document.querySelectorAll(
-            "[data-user-avatar]"
-        );
-
-
-    avatarElements.forEach(
-        element => {
-
-            element.textContent =
-                firstName
-                    .charAt(0)
-                    .toUpperCase();
-
-        }
-    );
-
-
-    const welcomeTitle =
+    const avatar =
         document.querySelector(
-            ".welcome-title"
+            ".user-avatar"
         );
 
 
-    if (welcomeTitle) {
+    if (avatar) {
 
-        welcomeTitle.innerHTML =
-            `Olá, <span>${firstName}</span>.`;
+        avatar.textContent =
+            user.name
+                .charAt(0)
+                .toUpperCase();
+
+    }
+
+
+    const profileName =
+        document.querySelector(
+            ".profile-name"
+        );
+
+
+    if (profileName) {
+
+        profileName.textContent =
+            user.name;
+
+    }
+
+
+    const profileEmail =
+        document.querySelector(
+            ".profile-email"
+        );
+
+
+    if (profileEmail) {
+
+        profileEmail.textContent =
+            user.email;
 
     }
 
@@ -762,6 +836,7 @@ function setupCategories() {
             ".category-button"
         );
 
+
     if (!buttons.length) {
         return;
     }
@@ -775,13 +850,10 @@ function setupCategories() {
                 () => {
 
                     buttons.forEach(
-                        item => {
-
+                        item =>
                             item.classList.remove(
                                 "active"
-                            );
-
-                        }
+                            )
                     );
 
 
@@ -791,8 +863,7 @@ function setupCategories() {
 
 
                     const category =
-                        button.dataset.category ||
-                        button.textContent.trim();
+                        button.dataset.category;
 
 
                     filterDiscoveries(
@@ -809,92 +880,126 @@ function setupCategories() {
 
 
 /* =========================================================
-   PESQUISA
+   FILTRO
+   ========================================================= */
+
+function filterDiscoveries(
+    category
+) {
+
+    const items =
+        document.querySelectorAll(
+            ".discovery-item"
+        );
+
+
+    items.forEach(
+        item => {
+
+            const itemCategory =
+                item.dataset.category;
+
+
+            if (
+                category === "Todos" ||
+                category === itemCategory
+            ) {
+
+                item.style.display =
+                    "";
+
+            } else {
+
+                item.style.display =
+                    "none";
+
+            }
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   BUSCA
    ========================================================= */
 
 function setupSearch() {
 
-    const searchInput =
+    const input =
         document.querySelector(
             ".search-input"
         );
 
 
-    if (!searchInput) {
+    if (!input) {
         return;
     }
 
 
-    searchInput.addEventListener(
+    input.addEventListener(
         "input",
         () => {
 
             const query =
-                searchInput.value
+                input.value
                     .trim()
                     .toLowerCase();
 
 
-            searchDiscoveries(
-                query
+            const items =
+                document.querySelectorAll(
+                    ".discovery-item"
+                );
+
+
+            let visible =
+                0;
+
+
+            items.forEach(
+                item => {
+
+                    const text =
+                        item.textContent
+                            .toLowerCase();
+
+
+                    if (
+                        text.includes(
+                            query
+                        )
+                    ) {
+
+                        item.style.display =
+                            "";
+
+                        visible++;
+
+                    } else {
+
+                        item.style.display =
+                            "none";
+
+                    }
+
+                }
             );
 
-        }
-    );
 
-}
-
-
-/* =========================================================
-   FILTRO POR CATEGORIA
-   ========================================================= */
-
-function filterDiscoveries(category) {
-
-    const cards =
-        document.querySelectorAll(
-            ".discovery-item"
-        );
+            const empty =
+                document.querySelector(
+                    ".search-empty"
+                );
 
 
-    cards.forEach(
-        card => {
+            if (empty) {
 
-            const cardCategory =
-                card.dataset.category ||
-                card.querySelector(
-                    ".card-category"
-                )?.textContent.trim();
-
-
-            if (
-                category === "Todos" ||
-                category === "todos" ||
-                !category
-            ) {
-
-                card.style.display =
-                    "";
-
-                return;
-
-            }
-
-
-            if (
-                cardCategory &&
-                cardCategory
-                    .toLowerCase() ===
-                category.toLowerCase()
-            ) {
-
-                card.style.display =
-                    "";
-
-            } else {
-
-                card.style.display =
-                    "none";
+                empty.style.display =
+                    visible === 0
+                        ? "block"
+                        : "none";
 
             }
 
@@ -905,85 +1010,29 @@ function filterDiscoveries(category) {
 
 
 /* =========================================================
-   PESQUISA NOS CARDS
-   ========================================================= */
-
-function searchDiscoveries(query) {
-
-    const cards =
-        document.querySelectorAll(
-            ".discovery-item"
-        );
-
-
-    let found = 0;
-
-
-    cards.forEach(
-        card => {
-
-            const text =
-                card.textContent
-                    .toLowerCase();
-
-
-            if (
-                !query ||
-                text.includes(query)
-            ) {
-
-                card.style.display =
-                    "";
-
-                found++;
-
-            } else {
-
-                card.style.display =
-                    "none";
-
-            }
-
-        }
-    );
-
-
-    const empty =
-        document.querySelector(
-            ".search-empty"
-        );
-
-
-    if (empty) {
-
-        if (
-            query &&
-            found === 0
-        ) {
-
-            empty.style.display =
-                "flex";
-
-        } else {
-
-            empty.style.display =
-                "none";
-
-        }
-
-    }
-
-}
-
-
-/* =========================================================
-   DISCOVERY
+   DESCOBERTA
    ========================================================= */
 
 function setupDiscovery() {
 
+    const container =
+        document.querySelector(
+            ".discovery-grid"
+        );
+
+
+    if (!container) {
+        return;
+    }
+
+
+    /*
+     * Se os cards já existem no HTML,
+     * não recriaremos eles.
+     */
+
     const cards =
-        document.querySelectorAll(
+        container.querySelectorAll(
             ".discovery-item"
         );
 
@@ -1002,26 +1051,6 @@ function setupDiscovery() {
             }
 
 
-            const id =
-                card.dataset.id ||
-                getCardId(card);
-
-
-            if (
-                getSavedItems()
-                    .includes(String(id))
-            ) {
-
-                saveButton.classList.add(
-                    "saved"
-                );
-
-                saveButton.textContent =
-                    "✓";
-
-            }
-
-
             saveButton.addEventListener(
                 "click",
                 event => {
@@ -1030,10 +1059,150 @@ function setupDiscovery() {
 
                     event.stopPropagation();
 
-                    toggleSaved(
-                        String(id),
-                        card,
-                        saveButton
+
+                    const id =
+                        card.dataset.id;
+
+
+                    if (!id) {
+                        return;
+                    }
+
+
+                    let saved =
+                        getSavedItems();
+
+
+                    const alreadySaved =
+                        saved.includes(
+                            id
+                        );
+
+
+                    if (
+                        alreadySaved
+                    ) {
+
+                        saved =
+                            saved.filter(
+                                savedId =>
+                                    savedId !== id
+                            );
+
+
+                        saveButton.classList.remove(
+                            "saved"
+                        );
+
+
+                        showMessage(
+                            "Removido dos salvos."
+                        );
+
+                    } else {
+
+                        saved.push(
+                            id
+                        );
+
+
+                        saveButton.classList.add(
+                            "saved"
+                        );
+
+
+                        const category =
+                            card.dataset.category;
+
+
+                        registerInterest(
+                            category
+                        );
+
+
+                        showMessage(
+                            "Salvo na sua Zenvora."
+                        );
+
+                    }
+
+
+                    saveSavedItems(
+                        saved
+                    );
+
+
+                    renderSaved();
+
+                }
+            );
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   SIDEBAR
+   ========================================================= */
+
+function setupSidebar() {
+
+    const links =
+        document.querySelectorAll(
+            ".sidebar-link"
+        );
+
+
+    const sections =
+        document.querySelectorAll(
+            "[data-section-content]"
+        );
+
+
+    if (!links.length) {
+        return;
+    }
+
+
+    links.forEach(
+        link => {
+
+            link.addEventListener(
+                "click",
+                event => {
+
+                    event.preventDefault();
+
+
+                    const section =
+                        link.dataset.section;
+
+
+                    links.forEach(
+                        item =>
+                            item.classList.remove(
+                                "active"
+                            )
+                    );
+
+
+                    link.classList.add(
+                        "active"
+                    );
+
+
+                    sections.forEach(
+                        content => {
+
+                            content.style.display =
+                                content.dataset.sectionContent ===
+                                section
+                                    ? ""
+                                    : "none";
+
+                        }
                     );
 
                 }
@@ -1045,88 +1214,8 @@ function setupDiscovery() {
 }
 
 
-function getCardId(card) {
-
-    const cards =
-        Array.from(
-            document.querySelectorAll(
-                ".discovery-item"
-            )
-        );
-
-    return cards.indexOf(card) + 1;
-
-}
-
-
 /* =========================================================
-   SALVAR DESCOBERTA
-   ========================================================= */
-
-function toggleSaved(
-    id,
-    card,
-    button
-) {
-
-    let saved =
-        getSavedItems();
-
-
-    if (
-        saved.includes(id)
-    ) {
-
-        saved =
-            saved.filter(
-                item => item !== id
-            );
-
-
-        button.classList.remove(
-            "saved"
-        );
-
-        button.textContent =
-            "♡";
-
-
-        showMessage(
-            "Removido dos salvos."
-        );
-
-    } else {
-
-        saved.push(id);
-
-
-        button.classList.add(
-            "saved"
-        );
-
-        button.textContent =
-            "✓";
-
-
-        showMessage(
-            "Salvo na sua Zenvora."
-        );
-
-    }
-
-
-    saveSavedItems(
-        saved
-    );
-
-
-    renderSaved();
-
-}
-
-
-/* =========================================================
-   RENDERIZAR SALVOS
+   SALVOS
    ========================================================= */
 
 function renderSaved() {
@@ -1152,180 +1241,32 @@ function renderSaved() {
         );
 
 
-    container.innerHTML = "";
-
-
-    if (!saved.length) {
-
-        container.innerHTML = `
-            <div class="empty-state">
-                <div class="empty-icon">♡</div>
-                <h3>Nada salvo ainda</h3>
-                <p>
-                    Salve descobertas que você quiser
-                    encontrar novamente.
-                </p>
-            </div>
-        `;
-
-        return;
-
-    }
-
-
     cards.forEach(
         card => {
 
             const id =
-                String(
-                    card.dataset.id ||
-                    getCardId(card)
-                );
+                card.dataset.id;
 
 
-            if (
-                !saved.includes(id)
-            ) {
-                return;
-            }
-
-
-            const clone =
-                card.cloneNode(true);
-
-
-            const saveButton =
-                clone.querySelector(
+            const button =
+                card.querySelector(
                     ".save-button"
                 );
 
 
-            if (saveButton) {
+            if (
+                button &&
+                saved.includes(id)
+            ) {
 
-                saveButton.textContent =
-                    "✓";
-
-                saveButton.classList.add(
+                button.classList.add(
                     "saved"
                 );
 
             }
 
-
-            container.appendChild(
-                clone
-            );
-
         }
     );
-
-}
-
-
-/* =========================================================
-   SIDEBAR
-   ========================================================= */
-
-function setupSidebar() {
-
-    const links =
-        document.querySelectorAll(
-            ".sidebar-link"
-        );
-
-
-    links.forEach(
-        link => {
-
-            link.addEventListener(
-                "click",
-                event => {
-
-                    const target =
-                        link.dataset.section;
-
-
-                    if (!target) {
-                        return;
-                    }
-
-
-                    event.preventDefault();
-
-
-                    links.forEach(
-                        item => {
-
-                            item.classList.remove(
-                                "active"
-                            );
-
-                        }
-                    );
-
-
-                    link.classList.add(
-                        "active"
-                    );
-
-
-                    showSection(
-                        target
-                    );
-
-                }
-            );
-
-        }
-    );
-
-}
-
-
-function showSection(section) {
-
-    const sections =
-        document.querySelectorAll(
-            "[data-section-content]"
-        );
-
-
-    sections.forEach(
-        element => {
-
-            if (
-                element.dataset.sectionContent ===
-                section
-            ) {
-
-                element.style.display =
-                    "";
-
-            } else {
-
-                element.style.display =
-                    "none";
-
-            }
-
-        }
-    );
-
-
-    if (
-        section === "inicio"
-    ) {
-
-        document
-            .querySelector(
-                ".app-content"
-            )
-            ?.scrollTo({
-                top: 0,
-                behavior: "smooth"
-            });
-
-    }
 
 }
 
@@ -1336,44 +1277,74 @@ function showSection(section) {
 
 function setupLogout() {
 
-    const logoutButtons =
-        document.querySelectorAll(
-            ".logout-button, [data-logout]"
+    const button =
+        document.querySelector(
+            ".logout-button"
         );
 
 
-    logoutButtons.forEach(
-        button => {
-
-            button.addEventListener(
-                "click",
-                event => {
-
-                    event.preventDefault();
+    if (!button) {
+        return;
+    }
 
 
-                    localStorage.removeItem(
-                        "zenvora_user"
-                    );
+    button.addEventListener(
+        "click",
+        event => {
+
+            event.preventDefault();
 
 
-                    showMessage(
-                        "Saindo da Zenvora..."
-                    );
-
-
-                    setTimeout(
-                        () => {
-
-                            window.location.href =
-                                "login.html";
-
-                        },
-                        500
-                    );
-
-                }
+            localStorage.removeItem(
+                "zenvora_user"
             );
+
+
+            window.location.href =
+                "index.html";
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   ATALHOS
+   ========================================================= */
+
+function setupKeyboardShortcuts() {
+
+    document.addEventListener(
+        "keydown",
+        event => {
+
+            /*
+             * /
+             * Foca na pesquisa
+             */
+
+            if (
+                event.key === "/" &&
+                !["INPUT", "TEXTAREA"].includes(
+                    document.activeElement.tagName
+                )
+            ) {
+
+                event.preventDefault();
+
+
+                const search =
+                    document.querySelector(
+                        ".search-input"
+                    );
+
+
+                if (search) {
+                    search.focus();
+                }
+
+            }
 
         }
     );
@@ -1403,7 +1374,7 @@ function setupNotifications() {
         () => {
 
             showMessage(
-                "Você não possui novas notificações."
+                "Você está em dia. Novas descobertas aparecerão aqui."
             );
 
         }
@@ -1413,420 +1384,8 @@ function setupNotifications() {
 
 
 /* =========================================================
-   ATALHOS DO TECLADO
+   PERSONALIZAÇÃO DOS CARDS
    ========================================================= */
-
-function setupKeyboardShortcuts() {
-
-    document.addEventListener(
-        "keydown",
-        event => {
-
-            /*
-                Pressionar "/" abre a pesquisa.
-            */
-
-            if (
-                event.key === "/" &&
-                !isTyping(event.target)
-            ) {
-
-                event.preventDefault();
-
-
-                const search =
-                    document.querySelector(
-                        ".search-input"
-                    );
-
-
-                if (search) {
-
-                    search.focus();
-
-                }
-
-            }
-
-
-            /*
-                ESC tira o foco da pesquisa.
-            */
-
-            if (
-                event.key === "Escape"
-            ) {
-
-                const search =
-                    document.querySelector(
-                        ".search-input"
-                    );
-
-
-                if (search) {
-
-                    search.blur();
-
-                }
-
-            }
-
-        }
-    );
-
-}
-
-
-function isTyping(element) {
-
-    if (!element) {
-        return false;
-    }
-
-
-    const tag =
-        element.tagName.toLowerCase();
-
-
-    return (
-        tag === "input" ||
-        tag === "textarea" ||
-        tag === "select"
-    );
-
-}
-
-
-/* =========================================================
-   HOME
-   ========================================================= */
-
-function setupGlobalFeatures() {
-
-    const user =
-        getUser();
-
-
-    /*
-        Se o usuário já estiver logado
-        e tentar abrir o cadastro/login,
-        podemos manter a página normal.
-    */
-
-
-    const homeButtons =
-        document.querySelectorAll(
-            "[data-start]"
-        );
-
-
-    homeButtons.forEach(
-        button => {
-
-            button.addEventListener(
-                "click",
-                () => {
-
-                    if (user) {
-
-                        window.location.href =
-                            "app.html";
-
-                    }
-
-                }
-            );
-
-        }
-    );
-
-}
-
-
-/* =========================================================
-   ANIMAÇÃO DOS CARDS
-   ========================================================= */
-
-document.addEventListener(
-    "mousemove",
-    event => {
-
-        const cards =
-            document.querySelectorAll(
-                ".discovery-item"
-            );
-
-
-        cards.forEach(
-            card => {
-
-                if (
-                    card.style.display ===
-                    "none"
-                ) {
-                    return;
-                }
-
-
-                const rect =
-                    card.getBoundingClientRect();
-
-
-                const x =
-                    event.clientX -
-                    rect.left;
-
-
-                const y =
-                    event.clientY -
-                    rect.top;
-
-
-                if (
-                    x < 0 ||
-                    y < 0 ||
-                    x > rect.width ||
-                    y > rect.height
-                ) {
-
-                    return;
-
-                }
-
-
-                const rotateX =
-                    ((y / rect.height) - 0.5) *
-                    -3;
-
-
-                const rotateY =
-                    ((x / rect.width) - 0.5) *
-                    3;
-
-
-                card.style.transform =
-                    `perspective(800px)
-                     rotateX(${rotateX}deg)
-                     rotateY(${rotateY}deg)
-                     translateY(-2px)`;
-
-            }
-        );
-
-    }
-);
-
-
-/* =========================================================
-   RESET DA ANIMAÇÃO DOS CARDS
-   ========================================================= */
-
-document.addEventListener(
-    "mouseleave",
-    () => {
-
-        document
-            .querySelectorAll(
-                ".discovery-item"
-            )
-            .forEach(
-                card => {
-
-                    card.style.transform =
-                        "";
-
-                }
-            );
-
-    }
-);
-
-/* =========================================================
-   ZENVORA — PERSONALIZAÇÃO
-   Adicionado sem alterar o layout existente
-   ========================================================= */
-
-function getPreferences() {
-
-    try {
-
-        return JSON.parse(
-            localStorage.getItem(
-                "zenvora_preferences"
-            )
-        ) || {};
-
-    } catch {
-
-        return {};
-
-    }
-
-}
-
-
-function savePreferences(preferences) {
-
-    localStorage.setItem(
-        "zenvora_preferences",
-        JSON.stringify(preferences)
-    );
-
-}
-
-
-/* ---------------------------------------------------------
-   Registrar interesse
---------------------------------------------------------- */
-
-function registerInterest(category) {
-
-    if (!category) {
-        return;
-    }
-
-    const preferences =
-        getPreferences();
-
-    if (!preferences[category]) {
-
-        preferences[category] = 0;
-
-    }
-
-    preferences[category]++;
-
-    savePreferences(
-        preferences
-    );
-
-}
-
-
-/* ---------------------------------------------------------
-   Descobrir categoria mais forte
---------------------------------------------------------- */
-
-function getFavoriteCategory() {
-
-    const preferences =
-        getPreferences();
-
-    const entries =
-        Object.entries(
-            preferences
-        );
-
-    if (!entries.length) {
-        return null;
-    }
-
-    entries.sort(
-        (a, b) => b[1] - a[1]
-    );
-
-    return entries[0][0];
-
-}
-
-
-/* ---------------------------------------------------------
-   Personalizar porcentagens
---------------------------------------------------------- */
-
-function personalizeRecommendations() {
-
-    const preferences =
-        getPreferences();
-
-    const cards =
-        document.querySelectorAll(
-            ".discovery-item"
-        );
-
-    cards.forEach(
-        card => {
-
-            const category =
-                card.dataset.category ||
-                card.querySelector(
-                    ".card-category"
-                )?.textContent.trim();
-
-
-            if (!category) {
-                return;
-            }
-
-
-            const originalScore =
-                parseInt(
-                    card.dataset.originalScore ||
-                    card.querySelector(
-                        ".match-score"
-                    )?.textContent ||
-                    "70"
-                );
-
-
-            if (!card.dataset.originalScore) {
-
-                card.dataset.originalScore =
-                    originalScore;
-
-            }
-
-
-            const interest =
-                preferences[category] || 0;
-
-
-            /*
-             * Cada interação aumenta a relevância.
-             * Existe um limite para não deixar
-             * todas as recomendações em 100%.
-             */
-
-            const bonus =
-                Math.min(
-                    interest * 2,
-                    10
-                );
-
-
-            let score =
-                originalScore + bonus;
-
-
-            score =
-                Math.min(
-                    score,
-                    99
-                );
-
-
-            const scoreElement =
-                card.querySelector(
-                    ".match-score"
-                );
-
-
-            if (scoreElement) {
-
-                scoreElement.textContent =
-                    `${score}% combina`;
-
-            }
-
-        }
-    );
-
-}
-
-
-/* ---------------------------------------------------------
-   Registrar quando salvar
---------------------------------------------------------- */
 
 function setupPersonalization() {
 
@@ -1841,98 +1400,113 @@ function setupPersonalization() {
     }
 
 
+    const preferences =
+        getPreferences();
+
+
     cards.forEach(
         card => {
 
-            const saveButton =
+            const category =
+                card.dataset.category;
+
+
+            const scoreElement =
                 card.querySelector(
-                    ".save-button"
+                    ".match-score"
                 );
 
 
-            if (!saveButton) {
-                return;
-            }
-
-
-            /*
-             * Evita adicionar o mesmo
-             * evento duas vezes.
-             */
-
             if (
-                saveButton.dataset
-                    .personalizationReady ===
-                "true"
+                !scoreElement
             ) {
-
                 return;
-
             }
 
 
-            saveButton.dataset
-                .personalizationReady =
-                "true";
+            const baseScore =
+                Number(
+                    scoreElement.dataset.baseScore ||
+                    scoreElement.textContent
+                        .replace(/\D/g, "")
+                );
 
 
-            saveButton.addEventListener(
-                "click",
-                () => {
-
-                    const category =
-                        card.dataset.category ||
-                        card.querySelector(
-                            ".card-category"
-                        )?.textContent.trim();
+            const interest =
+                preferences[
+                    category
+                ] || 0;
 
 
-                    /*
-                     * Só registra como interesse
-                     * quando o usuário salva.
-                     */
+            const bonus =
+                Math.min(
+                    interest * 3,
+                    18
+                );
 
-                    if (
-                        saveButton.classList
-                            .contains("saved")
-                    ) {
 
-                        registerInterest(
-                            category
-                        );
+            const finalScore =
+                Math.min(
+                    99,
+                    baseScore + bonus
+                );
 
-                        personalizeRecommendations();
 
-                    }
+            scoreElement.textContent =
+                `${finalScore}% match`;
 
-                }
-            );
+
+            scoreElement.dataset.baseScore =
+                baseScore;
 
         }
     );
 
-
-    personalizeRecommendations();
-
 }
 
 
-/* ---------------------------------------------------------
-   Inicializar depois que a página carregar
---------------------------------------------------------- */
+/* =========================================================
+   INICIALIZAÇÃO
+   ========================================================= */
 
 document.addEventListener(
     "DOMContentLoaded",
     () => {
 
-        setTimeout(
-            () => {
+        protectApp();
 
-                setupPersonalization();
+        setupLogin();
 
-            },
-            100
-        );
+        setupRegister();
+
+
+        const user =
+            getUser();
+
+
+        /*
+         * Só configura o aplicativo
+         * quando estamos dentro dele.
+         */
+
+        if (
+            document.body.classList.contains(
+                "app-page"
+            )
+        ) {
+
+            setupApp(user);
+
+            setTimeout(
+                () => {
+
+                    setupPersonalization();
+
+                },
+                100
+            );
+
+        }
 
     }
 );
