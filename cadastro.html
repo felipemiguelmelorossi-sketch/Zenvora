@@ -1,1 +1,517 @@
+```html
+<!DOCTYPE html>
+<html lang="pt-BR">
 
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="description"
+        content="Crie sua conta na Zenvora."
+    >
+
+    <title>Criar conta | Zenvora</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="auth-page">
+
+    <!-- FUNDO -->
+    <div class="auth-background">
+
+        <div class="glow glow-one"></div>
+        <div class="glow glow-two"></div>
+
+        <div class="grid-effect"></div>
+
+    </div>
+
+
+    <!-- NAVBAR -->
+    <header class="auth-navbar">
+
+        <a href="index.html" class="logo">
+            ZENVORA
+        </a>
+
+        <a href="index.html" class="back-link">
+            Voltar ao início
+        </a>
+
+    </header>
+
+
+    <!-- CADASTRO -->
+    <main class="auth-container">
+
+        <section class="auth-box">
+
+            <!-- ÍCONE -->
+            <div class="auth-icon">
+                Z
+            </div>
+
+
+            <!-- TÍTULO -->
+            <div class="auth-heading">
+
+                <span class="auth-label">
+                    COMEÇE AGORA
+                </span>
+
+                <h1>
+                    Crie sua<br>
+                    <span>conta.</span>
+                </h1>
+
+                <p>
+                    Entre para a Zenvora e comece a descobrir
+                    coisas que combinam com você.
+                </p>
+
+            </div>
+
+
+            <!-- FORMULÁRIO -->
+            <form
+                id="registerForm"
+                class="auth-form"
+            >
+
+
+                <!-- NOME -->
+                <div class="input-group">
+
+                    <label for="name">
+                        Nome
+                    </label>
+
+                    <div class="input-wrapper">
+
+                        <span class="input-icon">
+                            ◉
+                        </span>
+
+                        <input
+                            type="text"
+                            id="name"
+                            name="name"
+                            placeholder="Como podemos te chamar?"
+                            autocomplete="name"
+                            minlength="2"
+                            required
+                        >
+
+                    </div>
+
+                </div>
+
+
+                <!-- EMAIL -->
+                <div class="input-group">
+
+                    <label for="email">
+                        E-mail
+                    </label>
+
+                    <div class="input-wrapper">
+
+                        <span class="input-icon">
+                            @
+                        </span>
+
+                        <input
+                            type="email"
+                            id="email"
+                            name="email"
+                            placeholder="seu@email.com"
+                            autocomplete="email"
+                            required
+                        >
+
+                    </div>
+
+                </div>
+
+
+                <!-- SENHA -->
+                <div class="input-group">
+
+                    <label for="password">
+                        Senha
+                    </label>
+
+                    <div class="input-wrapper">
+
+                        <span class="input-icon">
+                            •
+                        </span>
+
+                        <input
+                            type="password"
+                            id="password"
+                            name="password"
+                            placeholder="Crie uma senha"
+                            autocomplete="new-password"
+                            minlength="6"
+                            required
+                        >
+
+                        <button
+                            type="button"
+                            class="show-password"
+                            id="togglePassword"
+                            aria-label="Mostrar senha"
+                        >
+                            ◉
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <!-- CONFIRMAÇÃO -->
+                <div class="input-group">
+
+                    <label for="confirmPassword">
+                        Confirmar senha
+                    </label>
+
+                    <div class="input-wrapper">
+
+                        <span class="input-icon">
+                            •
+                        </span>
+
+                        <input
+                            type="password"
+                            id="confirmPassword"
+                            name="confirmPassword"
+                            placeholder="Digite a senha novamente"
+                            autocomplete="new-password"
+                            minlength="6"
+                            required
+                        >
+
+                        <button
+                            type="button"
+                            class="show-password"
+                            id="toggleConfirmPassword"
+                            aria-label="Mostrar confirmação da senha"
+                        >
+                            ◉
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <!-- TERMOS -->
+                <label class="remember">
+
+                    <input
+                        type="checkbox"
+                        id="terms"
+                        required
+                    >
+
+                    <span class="custom-checkbox"></span>
+
+                    <span>
+                        Aceito os termos de uso da Zenvora
+                    </span>
+
+                </label>
+
+
+                <!-- BOTÃO -->
+                <button
+                    type="submit"
+                    class="auth-submit"
+                >
+
+                    <span>
+                        Criar minha conta
+                    </span>
+
+                    <span class="submit-arrow">
+                        →
+                    </span>
+
+                </button>
+
+            </form>
+
+
+            <!-- DIVISOR -->
+            <div class="auth-divider">
+
+                <span>já possui uma conta?</span>
+
+            </div>
+
+
+            <!-- LOGIN -->
+            <div class="auth-footer">
+
+                <p>
+                    Volte para sua conta Zenvora.
+                </p>
+
+                <a href="login.html">
+
+                    Entrar na Zenvora
+
+                    <span>
+                        →
+                    </span>
+
+                </a>
+
+            </div>
+
+
+            <!-- SEGURANÇA -->
+            <div class="security-note">
+
+                <span>
+                    🔒
+                </span>
+
+                <p>
+                    Seus dados são tratados com segurança.
+                </p>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- RODAPÉ -->
+    <footer class="auth-bottom">
+
+        <span>
+            © 2026 Zenvora
+        </span>
+
+        <span>
+            Descubra. Conecte-se. Evolua.
+        </span>
+
+    </footer>
+
+
+    <!-- JAVASCRIPT -->
+    <script>
+
+        /* ==============================
+           MOSTRAR SENHA
+        ============================== */
+
+        const password =
+            document.getElementById("password");
+
+        const togglePassword =
+            document.getElementById("togglePassword");
+
+
+        togglePassword.addEventListener(
+            "click",
+            () => {
+
+                if (
+                    password.type === "password"
+                ) {
+
+                    password.type = "text";
+
+                    togglePassword.textContent = "◌";
+
+                } else {
+
+                    password.type = "password";
+
+                    togglePassword.textContent = "◉";
+
+                }
+
+            }
+        );
+
+
+        /* ==============================
+           MOSTRAR CONFIRMAÇÃO
+        ============================== */
+
+        const confirmPassword =
+            document.getElementById("confirmPassword");
+
+        const toggleConfirmPassword =
+            document.getElementById(
+                "toggleConfirmPassword"
+            );
+
+
+        toggleConfirmPassword.addEventListener(
+            "click",
+            () => {
+
+                if (
+                    confirmPassword.type === "password"
+                ) {
+
+                    confirmPassword.type = "text";
+
+                    toggleConfirmPassword.textContent = "◌";
+
+                } else {
+
+                    confirmPassword.type = "password";
+
+                    toggleConfirmPassword.textContent = "◉";
+
+                }
+
+            }
+        );
+
+
+        /* ==============================
+           VALIDAÇÃO DO CADASTRO
+        ============================== */
+
+        const registerForm =
+            document.getElementById(
+                "registerForm"
+            );
+
+
+        registerForm.addEventListener(
+            "submit",
+            (event) => {
+
+                event.preventDefault();
+
+
+                const name =
+                    document.getElementById(
+                        "name"
+                    ).value.trim();
+
+
+                const email =
+                    document.getElementById(
+                        "email"
+                    ).value.trim();
+
+
+                const passwordValue =
+                    password.value;
+
+
+                const confirmValue =
+                    confirmPassword.value;
+
+
+                /* Senhas diferentes */
+
+                if (
+                    passwordValue !== confirmValue
+                ) {
+
+                    alert(
+                        "As senhas não são iguais."
+                    );
+
+                    confirmPassword.focus();
+
+                    return;
+
+                }
+
+
+                /* Senha curta */
+
+                if (
+                    passwordValue.length < 6
+                ) {
+
+                    alert(
+                        "A senha precisa ter pelo menos 6 caracteres."
+                    );
+
+                    password.focus();
+
+                    return;
+
+                }
+
+
+                /* Botão */
+
+                const button =
+                    registerForm.querySelector(
+                        ".auth-submit"
+                    );
+
+
+                const originalHTML =
+                    button.innerHTML;
+
+
+                button.disabled = true;
+
+                button.innerHTML =
+                    "<span>Criando conta...</span>";
+
+
+                /*
+                    Temporariamente guardamos os dados
+                    apenas no navegador.
+
+                    O sistema real de autenticação
+                    será conectado depois.
+                */
+
+                localStorage.setItem(
+                    "zenvora_user",
+                    JSON.stringify({
+                        name: name,
+                        email: email
+                    })
+                );
+
+
+                setTimeout(() => {
+
+                    button.innerHTML =
+                        "<span>Conta criada ✓</span>";
+
+                    setTimeout(() => {
+
+                        window.location.href =
+                            "app.html";
+
+                    }, 700);
+
+                }, 900);
+
+            }
+        );
+
+    </script>
+
+</body>
+
+</html>
+```
