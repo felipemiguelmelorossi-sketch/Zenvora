@@ -1,1 +1,1115 @@
+```html
+<!DOCTYPE html>
+<html lang="pt-BR">
 
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="description"
+        content="Zenvora — descubra coisas que combinam com você."
+    >
+
+    <title>Zenvora — Descobrir</title>
+
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+
+<body class="app-page">
+
+
+    <!-- ================================
+         FUNDO
+    ================================= -->
+
+    <div class="app-background">
+
+        <div class="app-glow"></div>
+
+        <div class="app-grid"></div>
+
+    </div>
+
+
+
+    <!-- ================================
+         SIDEBAR
+    ================================= -->
+
+    <aside class="sidebar">
+
+        <a href="app.html" class="app-logo">
+            ZENVORA
+        </a>
+
+
+        <nav class="sidebar-nav">
+
+            <a
+                href="#inicio"
+                class="sidebar-link active"
+            >
+                <span>⌂</span>
+                <span>Início</span>
+            </a>
+
+
+            <a
+                href="#descobrir"
+                class="sidebar-link"
+            >
+                <span>✦</span>
+                <span>Descobrir</span>
+            </a>
+
+
+            <a
+                href="#salvos"
+                class="sidebar-link"
+            >
+                <span>♡</span>
+                <span>Salvos</span>
+            </a>
+
+
+            <a
+                href="#perfil"
+                class="sidebar-link"
+            >
+                <span>◉</span>
+                <span>Meu perfil</span>
+            </a>
+
+        </nav>
+
+
+        <div class="sidebar-bottom">
+
+            <button
+                type="button"
+                class="sidebar-link logout-button"
+                id="logoutButton"
+            >
+                <span>↪</span>
+                <span>Sair</span>
+            </button>
+
+        </div>
+
+    </aside>
+
+
+
+    <!-- ================================
+         CONTEÚDO PRINCIPAL
+    ================================= -->
+
+    <main class="app-content">
+
+
+        <!-- TOPBAR -->
+
+        <header class="app-topbar">
+
+            <div>
+
+                <span class="topbar-label">
+                    ZENVORA
+                </span>
+
+                <h1 id="welcomeTitle">
+                    Descubra algo novo.
+                </h1>
+
+            </div>
+
+
+            <div class="user-area">
+
+                <button
+                    type="button"
+                    class="notification-button"
+                    aria-label="Notificações"
+                >
+                    ♢
+
+                    <span class="notification-dot"></span>
+
+                </button>
+
+
+                <div class="user-avatar" id="userAvatar">
+                    Z
+                </div>
+
+            </div>
+
+        </header>
+
+
+
+        <!-- ================================
+             BUSCA
+        ================================= -->
+
+        <section class="search-section">
+
+            <div class="search-box">
+
+                <span class="search-icon">
+                    ⌕
+                </span>
+
+                <input
+                    type="search"
+                    id="searchInput"
+                    placeholder="O que você quer descobrir?"
+                    autocomplete="off"
+                >
+
+                <span class="search-shortcut">
+                    /
+                </span>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- ================================
+             CATEGORIAS
+        ================================= -->
+
+        <section
+            class="categories-section"
+            id="descobrir"
+        >
+
+            <div class="section-header">
+
+                <div>
+
+                    <span class="section-label">
+                        EXPLORE
+                    </span>
+
+                    <h2>
+                        Escolha uma categoria
+                    </h2>
+
+                </div>
+
+            </div>
+
+
+            <div class="category-list">
+
+                <button
+                    class="category-button active"
+                    data-category="Todos"
+                >
+                    <span>✦</span>
+                    Todos
+                </button>
+
+
+                <button
+                    class="category-button"
+                    data-category="Tecnologia"
+                >
+                    <span>⌘</span>
+                    Tecnologia
+                </button>
+
+
+                <button
+                    class="category-button"
+                    data-category="Games"
+                >
+                    <span>◈</span>
+                    Games
+                </button>
+
+
+                <button
+                    class="category-button"
+                    data-category="Moda"
+                >
+                    <span>◇</span>
+                    Moda
+                </button>
+
+
+                <button
+                    class="category-button"
+                    data-category="Música"
+                >
+                    <span>♫</span>
+                    Música
+                </button>
+
+
+                <button
+                    class="category-button"
+                    data-category="Negócios"
+                >
+                    <span>↗</span>
+                    Negócios
+                </button>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- ================================
+             DESTAQUE
+        ================================= -->
+
+        <section class="featured-section">
+
+            <div class="featured-card">
+
+                <div class="featured-content">
+
+                    <span class="featured-tag">
+                        ✦ RECOMENDADO PARA VOCÊ
+                    </span>
+
+                    <h2>
+                        Descubra o que<br>
+                        combina com você.
+                    </h2>
+
+                    <p>
+                        A Zenvora aprende com aquilo que
+                        você gosta para entregar descobertas
+                        cada vez mais interessantes.
+                    </p>
+
+                    <button
+                        type="button"
+                        class="featured-button"
+                    >
+                        Explorar agora
+                        <span>→</span>
+                    </button>
+
+                </div>
+
+
+                <div class="featured-orb">
+
+                    <div class="orb-center">
+                        Z
+                    </div>
+
+                    <div class="orb-ring ring-one"></div>
+                    <div class="orb-ring ring-two"></div>
+                    <div class="orb-ring ring-three"></div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- ================================
+             FEED
+        ================================= -->
+
+        <section
+            class="feed-section"
+            id="inicio"
+        >
+
+            <div class="section-header feed-header">
+
+                <div>
+
+                    <span class="section-label">
+                        PARA VOCÊ
+                    </span>
+
+                    <h2>
+                        Descobertas de hoje
+                    </h2>
+
+                </div>
+
+
+                <span class="feed-count">
+                    6 descobertas
+                </span>
+
+            </div>
+
+
+            <div
+                class="discovery-grid"
+                id="discoveryGrid"
+            >
+
+
+                <!-- CARD 1 -->
+
+                <article
+                    class="discovery-item"
+                    data-category="Tecnologia"
+                    data-title="Inteligência artificial"
+                >
+
+                    <div class="discovery-image technology">
+                        AI
+                    </div>
+
+                    <div class="discovery-info">
+
+                        <span class="discovery-category">
+                            TECNOLOGIA
+                        </span>
+
+                        <h3>
+                            O futuro da inteligência artificial
+                        </h3>
+
+                        <p>
+                            Ferramentas que estão mudando
+                            a forma como criamos.
+                        </p>
+
+                        <div class="discovery-footer">
+
+                            <span>
+                                ✦ 94% combina com você
+                            </span>
+
+                            <button
+                                class="save-button"
+                                aria-label="Salvar"
+                            >
+                                ♡
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                </article>
+
+
+
+                <!-- CARD 2 -->
+
+                <article
+                    class="discovery-item"
+                    data-category="Games"
+                    data-title="Novos jogos"
+                >
+
+                    <div class="discovery-image games">
+                        GAME
+                    </div>
+
+                    <div class="discovery-info">
+
+                        <span class="discovery-category">
+                            GAMES
+                        </span>
+
+                        <h3>
+                            Jogos que você deveria conhecer
+                        </h3>
+
+                        <p>
+                            Descubra experiências diferentes
+                            para jogar com seus amigos.
+                        </p>
+
+                        <div class="discovery-footer">
+
+                            <span>
+                                ✦ 91% combina com você
+                            </span>
+
+                            <button
+                                class="save-button"
+                                aria-label="Salvar"
+                            >
+                                ♡
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                </article>
+
+
+
+                <!-- CARD 3 -->
+
+                <article
+                    class="discovery-item"
+                    data-category="Negócios"
+                    data-title="Ideias de negócios"
+                >
+
+                    <div class="discovery-image business">
+                        START
+                    </div>
+
+                    <div class="discovery-info">
+
+                        <span class="discovery-category">
+                            NEGÓCIOS
+                        </span>
+
+                        <h3>
+                            Ideias para começar algo novo
+                        </h3>
+
+                        <p>
+                            Tendências e oportunidades que
+                            estão ganhando espaço.
+                        </p>
+
+                        <div class="discovery-footer">
+
+                            <span>
+                                ✦ 88% combina com você
+                            </span>
+
+                            <button
+                                class="save-button"
+                                aria-label="Salvar"
+                            >
+                                ♡
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                </article>
+
+
+
+                <!-- CARD 4 -->
+
+                <article
+                    class="discovery-item"
+                    data-category="Música"
+                    data-title="Músicas novas"
+                >
+
+                    <div class="discovery-image music">
+                        ♫
+                    </div>
+
+                    <div class="discovery-info">
+
+                        <span class="discovery-category">
+                            MÚSICA
+                        </span>
+
+                        <h3>
+                            Sons que podem virar seus favoritos
+                        </h3>
+
+                        <p>
+                            Artistas e músicas para sair
+                            do óbvio.
+                        </p>
+
+                        <div class="discovery-footer">
+
+                            <span>
+                                ✦ 86% combina com você
+                            </span>
+
+                            <button
+                                class="save-button"
+                                aria-label="Salvar"
+                            >
+                                ♡
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                </article>
+
+
+
+                <!-- CARD 5 -->
+
+                <article
+                    class="discovery-item"
+                    data-category="Moda"
+                    data-title="Tendências de moda"
+                >
+
+                    <div class="discovery-image fashion">
+                        STYLE
+                    </div>
+
+                    <div class="discovery-info">
+
+                        <span class="discovery-category">
+                            MODA
+                        </span>
+
+                        <h3>
+                            Tendências que estão chegando
+                        </h3>
+
+                        <p>
+                            Novos estilos e ideias para
+                            atualizar seu visual.
+                        </p>
+
+                        <div class="discovery-footer">
+
+                            <span>
+                                ✦ 82% combina com você
+                            </span>
+
+                            <button
+                                class="save-button"
+                                aria-label="Salvar"
+                            >
+                                ♡
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                </article>
+
+
+
+                <!-- CARD 6 -->
+
+                <article
+                    class="discovery-item"
+                    data-category="Tecnologia"
+                    data-title="Aplicativos úteis"
+                >
+
+                    <div class="discovery-image apps">
+                        APP
+                    </div>
+
+                    <div class="discovery-info">
+
+                        <span class="discovery-category">
+                            TECNOLOGIA
+                        </span>
+
+                        <h3>
+                            Aplicativos que facilitam sua vida
+                        </h3>
+
+                        <p>
+                            Ferramentas interessantes que
+                            talvez você ainda não conheça.
+                        </p>
+
+                        <div class="discovery-footer">
+
+                            <span>
+                                ✦ 79% combina com você
+                            </span>
+
+                            <button
+                                class="save-button"
+                                aria-label="Salvar"
+                            >
+                                ♡
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                </article>
+
+
+            </div>
+
+
+            <!-- SEM RESULTADOS -->
+
+            <div
+                class="empty-results"
+                id="emptyResults"
+                style="display: none;"
+            >
+
+                <div class="empty-icon">
+                    ⌕
+                </div>
+
+                <h3>
+                    Nada encontrado
+                </h3>
+
+                <p>
+                    Tente pesquisar outra coisa.
+                </p>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- ================================
+             SALVOS
+        ================================= -->
+
+        <section
+            class="saved-section"
+            id="salvos"
+        >
+
+            <div class="section-header">
+
+                <div>
+
+                    <span class="section-label">
+                        SUA COLEÇÃO
+                    </span>
+
+                    <h2>
+                        Salvos
+                    </h2>
+
+                </div>
+
+            </div>
+
+
+            <div
+                class="saved-empty"
+                id="savedEmpty"
+            >
+
+                <div class="saved-empty-icon">
+                    ♡
+                </div>
+
+                <h3>
+                    Seus favoritos aparecerão aqui.
+                </h3>
+
+                <p>
+                    Salve descobertas para encontrá-las
+                    novamente depois.
+                </p>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- ================================
+             PERFIL
+        ================================= -->
+
+        <section
+            class="profile-section"
+            id="perfil"
+        >
+
+            <div class="profile-card">
+
+                <div
+                    class="profile-avatar"
+                    id="profileAvatar"
+                >
+                    Z
+                </div>
+
+                <div>
+
+                    <span class="section-label">
+                        SEU PERFIL
+                    </span>
+
+                    <h2 id="profileName">
+                        Usuário Zenvora
+                    </h2>
+
+                    <p id="profileEmail">
+                        usuário@zenvora.com
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+    </main>
+
+
+
+    <!-- ================================
+         JAVASCRIPT
+    ================================= -->
+
+    <script>
+
+        /* =================================
+           USUÁRIO
+        ================================= */
+
+        const storedUser =
+            localStorage.getItem("zenvora_user");
+
+
+        let user = null;
+
+
+        if (storedUser) {
+
+            try {
+
+                user =
+                    JSON.parse(storedUser);
+
+            } catch (error) {
+
+                user = null;
+
+            }
+
+        }
+
+
+        if (!user) {
+
+            window.location.href =
+                "login.html";
+
+        }
+
+
+        if (user) {
+
+            const name =
+                user.name || "Usuário";
+
+
+            const firstName =
+                name.split(" ")[0];
+
+
+            document.getElementById(
+                "welcomeTitle"
+            ).textContent =
+                `Olá, ${firstName}. Descubra algo novo.`;
+
+
+            document.getElementById(
+                "profileName"
+            ).textContent =
+                name;
+
+
+            document.getElementById(
+                "profileEmail"
+            ).textContent =
+                user.email || "";
+
+
+            const initial =
+                firstName.charAt(0).toUpperCase();
+
+
+            document.getElementById(
+                "userAvatar"
+            ).textContent =
+                initial;
+
+
+            document.getElementById(
+                "profileAvatar"
+            ).textContent =
+                initial;
+
+        }
+
+
+
+        /* =================================
+           CATEGORIAS
+        ================================= */
+
+        const categoryButtons =
+            document.querySelectorAll(
+                ".category-button"
+            );
+
+
+        const discoveryItems =
+            document.querySelectorAll(
+                ".discovery-item"
+            );
+
+
+        categoryButtons.forEach(
+            button => {
+
+                button.addEventListener(
+                    "click",
+                    () => {
+
+                        categoryButtons.forEach(
+                            item => {
+
+                                item.classList.remove(
+                                    "active"
+                                );
+
+                            }
+                        );
+
+
+                        button.classList.add(
+                            "active"
+                        );
+
+
+                        const category =
+                            button.dataset.category;
+
+
+                        discoveryItems.forEach(
+                            item => {
+
+                                if (
+                                    category === "Todos" ||
+                                    item.dataset.category === category
+                                ) {
+
+                                    item.style.display =
+                                        "block";
+
+                                } else {
+
+                                    item.style.display =
+                                        "none";
+
+                                }
+
+                            }
+                        );
+
+                    }
+                );
+
+            }
+        );
+
+
+
+        /* =================================
+           PESQUISA
+        ================================= */
+
+        const searchInput =
+            document.getElementById(
+                "searchInput"
+            );
+
+
+        const emptyResults =
+            document.getElementById(
+                "emptyResults"
+            );
+
+
+        searchInput.addEventListener(
+            "input",
+            () => {
+
+                const query =
+                    searchInput.value
+                        .toLowerCase()
+                        .trim();
+
+
+                let results = 0;
+
+
+                discoveryItems.forEach(
+                    item => {
+
+                        const title =
+                            item.dataset.title
+                                .toLowerCase();
+
+
+                        const category =
+                            item.dataset.category
+                                .toLowerCase();
+
+
+                        if (
+                            title.includes(query) ||
+                            category.includes(query)
+                        ) {
+
+                            item.style.display =
+                                "block";
+
+                            results++;
+
+                        } else {
+
+                            item.style.display =
+                                "none";
+
+                        }
+
+                    }
+                );
+
+
+                if (results === 0) {
+
+                    emptyResults.style.display =
+                        "block";
+
+                } else {
+
+                    emptyResults.style.display =
+                        "none";
+
+                }
+
+            }
+        );
+
+
+
+        /* =================================
+           SALVAR
+        ================================= */
+
+        const saveButtons =
+            document.querySelectorAll(
+                ".save-button"
+            );
+
+
+        saveButtons.forEach(
+            button => {
+
+                button.addEventListener(
+                    "click",
+                    () => {
+
+                        button.classList.toggle(
+                            "saved"
+                        );
+
+
+                        if (
+                            button.classList.contains(
+                                "saved"
+                            )
+                        ) {
+
+                            button.textContent =
+                                "♥";
+
+                        } else {
+
+                            button.textContent =
+                                "♡";
+
+                        }
+
+                    }
+                );
+
+            }
+        );
+
+
+
+        /* =================================
+           LOGOUT
+        ================================= */
+
+        const logoutButton =
+            document.getElementById(
+                "logoutButton"
+            );
+
+
+        logoutButton.addEventListener(
+            "click",
+            () => {
+
+                localStorage.removeItem(
+                    "zenvora_user"
+                );
+
+
+                window.location.href =
+                    "login.html";
+
+            }
+        );
+
+
+
+        /* =================================
+           TECLA /
+        ================================= */
+
+        document.addEventListener(
+            "keydown",
+            event => {
+
+                if (
+                    event.key === "/" &&
+                    document.activeElement !== searchInput
+                ) {
+
+                    event.preventDefault();
+
+                    searchInput.focus();
+
+                }
+
+            }
+        );
+
+    </script>
+
+</body>
+
+</html>
+```
