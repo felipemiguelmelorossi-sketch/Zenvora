@@ -273,7 +273,7 @@
 
 
         <!-- ================================
-             DESTAQUE PERSONALIZADO
+             DESTAQUE
         ================================= -->
 
         <section class="featured-section">
@@ -374,6 +374,7 @@
 
                 <article
                     class="discovery-item"
+                    data-id="ai-futuro"
                     data-category="Tecnologia"
                     data-title="Inteligência artificial"
                     data-base-score="94"
@@ -407,6 +408,7 @@
                             <button
                                 class="save-button"
                                 aria-label="Salvar"
+                                type="button"
                             >
                                 ♡
                             </button>
@@ -423,6 +425,7 @@
 
                 <article
                     class="discovery-item"
+                    data-id="novos-jogos"
                     data-category="Games"
                     data-title="Novos jogos"
                     data-base-score="91"
@@ -456,6 +459,7 @@
                             <button
                                 class="save-button"
                                 aria-label="Salvar"
+                                type="button"
                             >
                                 ♡
                             </button>
@@ -472,6 +476,7 @@
 
                 <article
                     class="discovery-item"
+                    data-id="ideias-negocios"
                     data-category="Negócios"
                     data-title="Ideias de negócios"
                     data-base-score="88"
@@ -505,6 +510,7 @@
                             <button
                                 class="save-button"
                                 aria-label="Salvar"
+                                type="button"
                             >
                                 ♡
                             </button>
@@ -521,6 +527,7 @@
 
                 <article
                     class="discovery-item"
+                    data-id="musicas-novas"
                     data-category="Música"
                     data-title="Músicas novas"
                     data-base-score="86"
@@ -554,6 +561,7 @@
                             <button
                                 class="save-button"
                                 aria-label="Salvar"
+                                type="button"
                             >
                                 ♡
                             </button>
@@ -570,6 +578,7 @@
 
                 <article
                     class="discovery-item"
+                    data-id="tendencias-moda"
                     data-category="Moda"
                     data-title="Tendências de moda"
                     data-base-score="82"
@@ -603,6 +612,7 @@
                             <button
                                 class="save-button"
                                 aria-label="Salvar"
+                                type="button"
                             >
                                 ♡
                             </button>
@@ -619,6 +629,7 @@
 
                 <article
                     class="discovery-item"
+                    data-id="aplicativos-uteis"
                     data-category="Tecnologia"
                     data-title="Aplicativos úteis"
                     data-base-score="79"
@@ -652,6 +663,7 @@
                             <button
                                 class="save-button"
                                 aria-label="Salvar"
+                                type="button"
                             >
                                 ♡
                             </button>
@@ -715,6 +727,13 @@
 
                 </div>
 
+            </div>
+
+
+            <div
+                class="saved-items"
+                id="savedItems"
+            >
             </div>
 
 
@@ -867,6 +886,15 @@
         const discoveryGrid =
             document.getElementById("discoveryGrid");
 
+        const savedItemsContainer =
+            document.getElementById("savedItems");
+
+        const savedEmpty =
+            document.getElementById("savedEmpty");
+
+        const emptyResults =
+            document.getElementById("emptyResults");
+
         const discoveryItems =
             Array.from(
                 document.querySelectorAll(
@@ -988,7 +1016,7 @@
 
 
         /* =================================
-           PERSONALIZAÇÃO DO DESTAQUE
+           PERSONALIZAÇÃO
         ================================= */
 
         if (favoriteCategory) {
@@ -1007,10 +1035,6 @@
 
             feedTitle.textContent =
                 `Mais coisas de ${favoriteCategory}`;
-
-
-            featuredButton.textContent =
-                "Explorar agora →";
 
         }
 
@@ -1051,16 +1075,12 @@
             }
 
 
-            const score =
-                Math.min(
-                    99,
-                    Math.round(
-                        baseScore + bonus
-                    )
-                );
-
-
-            return score;
+            return Math.min(
+                99,
+                Math.round(
+                    baseScore + bonus
+                )
+            );
 
         }
 
@@ -1137,8 +1157,473 @@
         );
 
 
-        feedCount.textContent =
-            `${discoveryItems.length} descobertas`;
+
+        /* =================================
+           SALVAMENTOS
+        ================================= */
+
+        const SAVED_STORAGE_KEY =
+            "zenvora_saved_items";
+
+
+        let savedItems = [];
+
+
+        function loadSavedItems() {
+
+            try {
+
+                const stored =
+                    localStorage.getItem(
+                        SAVED_STORAGE_KEY
+                    );
+
+
+                if (!stored) {
+
+                    return [];
+
+                }
+
+
+                const parsed =
+                    JSON.parse(stored);
+
+
+                return Array.isArray(parsed)
+                    ? parsed
+                    : [];
+
+            } catch (error) {
+
+                return [];
+
+            }
+
+        }
+
+
+
+        function saveSavedItems() {
+
+            localStorage.setItem(
+                SAVED_STORAGE_KEY,
+                JSON.stringify(
+                    savedItems
+                )
+            );
+
+        }
+
+
+
+        function isSaved(id) {
+
+            return savedItems.some(
+                item =>
+                    item.id === id
+            );
+
+        }
+
+
+
+        function saveItem(item) {
+
+            if (
+                isSaved(item.id)
+            ) {
+
+                return;
+
+            }
+
+
+            savedItems.push(item);
+
+            saveSavedItems();
+
+            renderSaved();
+
+        }
+
+
+
+        function removeSavedItem(id) {
+
+            savedItems =
+                savedItems.filter(
+                    item =>
+                        item.id !== id
+                );
+
+
+            saveSavedItems();
+
+            renderSaved();
+
+        }
+
+
+
+        /* =================================
+           RENDERIZAR SALVOS
+        ================================= */
+
+        function renderSaved() {
+
+            savedItemsContainer.innerHTML =
+                "";
+
+
+            if (
+                savedItems.length === 0
+            ) {
+
+                savedEmpty.style.display =
+                    "block";
+
+                return;
+
+            }
+
+
+            savedEmpty.style.display =
+                "none";
+
+
+            savedItems.forEach(
+                saved => {
+
+                    const article =
+                        document.createElement(
+                            "article"
+                        );
+
+
+                    article.className =
+                        "discovery-item saved-discovery-item";
+
+
+                    article.dataset.id =
+                        saved.id;
+
+
+                    article.dataset.category =
+                        saved.category;
+
+
+                    article.innerHTML = `
+
+                        <div class="discovery-image ${saved.imageClass}">
+                            ${saved.imageText}
+                        </div>
+
+                        <div class="discovery-info">
+
+                            <span class="discovery-category">
+                                ${saved.category.toUpperCase()}
+                            </span>
+
+                            <h3>
+                                ${saved.title}
+                            </h3>
+
+                            <p>
+                                ${saved.description}
+                            </p>
+
+                            <div class="discovery-footer">
+
+                                <span>
+                                    ✦ ${saved.score}% combina com você
+                                </span>
+
+                                <button
+                                    type="button"
+                                    class="save-button saved"
+                                    aria-label="Remover dos salvos"
+                                >
+                                    ♥
+                                </button>
+
+                            </div>
+
+                        </div>
+
+                    `;
+
+
+                    const removeButton =
+                        article.querySelector(
+                            ".save-button"
+                        );
+
+
+                    removeButton.addEventListener(
+                        "click",
+                        () => {
+
+                            removeSavedItem(
+                                saved.id
+                            );
+
+
+                            updateOriginalSaveButton(
+                                saved.id
+                            );
+
+                        }
+                    );
+
+
+                    savedItemsContainer.appendChild(
+                        article
+                    );
+
+                }
+            );
+
+        }
+
+
+
+        /* =================================
+           ATUALIZAR BOTÃO ORIGINAL
+        ================================= */
+
+        function updateOriginalSaveButton(id) {
+
+            const original =
+                document.querySelector(
+                    `.discovery-item[data-id="${id}"]`
+                );
+
+
+            if (!original) {
+
+                return;
+
+            }
+
+
+            const button =
+                original.querySelector(
+                    ".save-button"
+                );
+
+
+            if (!button) {
+
+                return;
+
+            }
+
+
+            if (isSaved(id)) {
+
+                button.classList.add(
+                    "saved"
+                );
+
+                button.textContent =
+                    "♥";
+
+            } else {
+
+                button.classList.remove(
+                    "saved"
+                );
+
+                button.textContent =
+                    "♡";
+
+            }
+
+        }
+
+
+
+        /* =================================
+           CRIAR OBJETO DO CARD
+        ================================= */
+
+        function createSavedObject(item) {
+
+            const image =
+                item.querySelector(
+                    ".discovery-image"
+                );
+
+
+            const category =
+                item.dataset.category;
+
+
+            const title =
+                item.dataset.title;
+
+
+            const descriptionElement =
+                item.querySelector(
+                    ".discovery-info p"
+                );
+
+
+            const matchElement =
+                item.querySelector(
+                    ".match-text"
+                );
+
+
+            const score =
+                Number(
+                    item.dataset.personalizedScore
+                ) ||
+                Number(
+                    item.dataset.baseScore
+                ) ||
+                0;
+
+
+            return {
+
+                id:
+                    item.dataset.id,
+
+                category:
+                    category,
+
+                title:
+                    title,
+
+                description:
+                    descriptionElement
+                        ? descriptionElement.textContent.trim()
+                        : "",
+
+                score:
+                    score,
+
+                imageClass:
+                    image
+                        ? image.className
+                            .replace(
+                                "discovery-image",
+                                ""
+                            )
+                            .trim()
+                        : "",
+
+                imageText:
+                    image
+                        ? image.textContent.trim()
+                        : ""
+
+            };
+
+        }
+
+
+
+        /* =================================
+           CONFIGURAR BOTÕES DE SALVAR
+        ================================= */
+
+        function setupSaveButtons() {
+
+            const buttons =
+                document.querySelectorAll(
+                    ".discovery-grid .save-button"
+                );
+
+
+            buttons.forEach(
+                button => {
+
+                    const item =
+                        button.closest(
+                            ".discovery-item"
+                        );
+
+
+                    if (!item) {
+
+                        return;
+
+                    }
+
+
+                    const id =
+                        item.dataset.id;
+
+
+                    if (
+                        isSaved(id)
+                    ) {
+
+                        button.classList.add(
+                            "saved"
+                        );
+
+                        button.textContent =
+                            "♥";
+
+                    }
+
+
+                    button.addEventListener(
+                        "click",
+                        () => {
+
+                            if (
+                                isSaved(id)
+                            ) {
+
+                                removeSavedItem(
+                                    id
+                                );
+
+                            } else {
+
+                                const saved =
+                                    createSavedObject(
+                                        item
+                                    );
+
+
+                                saveItem(
+                                    saved
+                                );
+
+                            }
+
+
+                            updateOriginalSaveButton(
+                                id
+                            );
+
+                        }
+                    );
+
+                }
+            );
+
+        }
+
+
+
+        /* =================================
+           CARREGAR SALVOS EXISTENTES
+        ================================= */
+
+        savedItems =
+            loadSavedItems();
+
+
+        renderSaved();
+
+        setupSaveButtons();
 
 
 
@@ -1228,12 +1713,6 @@
             );
 
 
-        const emptyResults =
-            document.getElementById(
-                "emptyResults"
-            );
-
-
         searchInput.addEventListener(
             "input",
             () => {
@@ -1244,7 +1723,8 @@
                         .trim();
 
 
-                let results = 0;
+                let results =
+                    0;
 
 
                 discoveryItems.forEach(
@@ -1281,7 +1761,9 @@
                 );
 
 
-                if (results === 0) {
+                if (
+                    results === 0
+                ) {
 
                     emptyResults.style.display =
                         "block";
@@ -1296,52 +1778,6 @@
 
                 feedCount.textContent =
                     `${results} descoberta${results === 1 ? "" : "s"}`;
-
-            }
-        );
-
-
-
-        /* =================================
-           SALVAR
-        ================================= */
-
-        const saveButtons =
-            document.querySelectorAll(
-                ".save-button"
-            );
-
-
-        saveButtons.forEach(
-            button => {
-
-                button.addEventListener(
-                    "click",
-                    () => {
-
-                        button.classList.toggle(
-                            "saved"
-                        );
-
-
-                        if (
-                            button.classList.contains(
-                                "saved"
-                            )
-                        ) {
-
-                            button.textContent =
-                                "♥";
-
-                        } else {
-
-                            button.textContent =
-                                "♡";
-
-                        }
-
-                    }
-                );
 
             }
         );
@@ -1374,6 +1810,11 @@
 
                 localStorage.removeItem(
                     "zenvora_onboarding"
+                );
+
+
+                localStorage.removeItem(
+                    SAVED_STORAGE_KEY
                 );
 
 
@@ -1429,7 +1870,7 @@
 
 
         /* =================================
-           NAVEGAÇÃO DA SIDEBAR
+           NAVEGAÇÃO SIDEBAR
         ================================= */
 
         const sidebarLinks =
