@@ -1640,3 +1640,299 @@ document.addEventListener(
 
     }
 );
+
+/* =========================================================
+   ZENVORA — PERSONALIZAÇÃO
+   Adicionado sem alterar o layout existente
+   ========================================================= */
+
+function getPreferences() {
+
+    try {
+
+        return JSON.parse(
+            localStorage.getItem(
+                "zenvora_preferences"
+            )
+        ) || {};
+
+    } catch {
+
+        return {};
+
+    }
+
+}
+
+
+function savePreferences(preferences) {
+
+    localStorage.setItem(
+        "zenvora_preferences",
+        JSON.stringify(preferences)
+    );
+
+}
+
+
+/* ---------------------------------------------------------
+   Registrar interesse
+--------------------------------------------------------- */
+
+function registerInterest(category) {
+
+    if (!category) {
+        return;
+    }
+
+    const preferences =
+        getPreferences();
+
+    if (!preferences[category]) {
+
+        preferences[category] = 0;
+
+    }
+
+    preferences[category]++;
+
+    savePreferences(
+        preferences
+    );
+
+}
+
+
+/* ---------------------------------------------------------
+   Descobrir categoria mais forte
+--------------------------------------------------------- */
+
+function getFavoriteCategory() {
+
+    const preferences =
+        getPreferences();
+
+    const entries =
+        Object.entries(
+            preferences
+        );
+
+    if (!entries.length) {
+        return null;
+    }
+
+    entries.sort(
+        (a, b) => b[1] - a[1]
+    );
+
+    return entries[0][0];
+
+}
+
+
+/* ---------------------------------------------------------
+   Personalizar porcentagens
+--------------------------------------------------------- */
+
+function personalizeRecommendations() {
+
+    const preferences =
+        getPreferences();
+
+    const cards =
+        document.querySelectorAll(
+            ".discovery-item"
+        );
+
+    cards.forEach(
+        card => {
+
+            const category =
+                card.dataset.category ||
+                card.querySelector(
+                    ".card-category"
+                )?.textContent.trim();
+
+
+            if (!category) {
+                return;
+            }
+
+
+            const originalScore =
+                parseInt(
+                    card.dataset.originalScore ||
+                    card.querySelector(
+                        ".match-score"
+                    )?.textContent ||
+                    "70"
+                );
+
+
+            if (!card.dataset.originalScore) {
+
+                card.dataset.originalScore =
+                    originalScore;
+
+            }
+
+
+            const interest =
+                preferences[category] || 0;
+
+
+            /*
+             * Cada interação aumenta a relevância.
+             * Existe um limite para não deixar
+             * todas as recomendações em 100%.
+             */
+
+            const bonus =
+                Math.min(
+                    interest * 2,
+                    10
+                );
+
+
+            let score =
+                originalScore + bonus;
+
+
+            score =
+                Math.min(
+                    score,
+                    99
+                );
+
+
+            const scoreElement =
+                card.querySelector(
+                    ".match-score"
+                );
+
+
+            if (scoreElement) {
+
+                scoreElement.textContent =
+                    `${score}% combina`;
+
+            }
+
+        }
+    );
+
+}
+
+
+/* ---------------------------------------------------------
+   Registrar quando salvar
+--------------------------------------------------------- */
+
+function setupPersonalization() {
+
+    const cards =
+        document.querySelectorAll(
+            ".discovery-item"
+        );
+
+
+    if (!cards.length) {
+        return;
+    }
+
+
+    cards.forEach(
+        card => {
+
+            const saveButton =
+                card.querySelector(
+                    ".save-button"
+                );
+
+
+            if (!saveButton) {
+                return;
+            }
+
+
+            /*
+             * Evita adicionar o mesmo
+             * evento duas vezes.
+             */
+
+            if (
+                saveButton.dataset
+                    .personalizationReady ===
+                "true"
+            ) {
+
+                return;
+
+            }
+
+
+            saveButton.dataset
+                .personalizationReady =
+                "true";
+
+
+            saveButton.addEventListener(
+                "click",
+                () => {
+
+                    const category =
+                        card.dataset.category ||
+                        card.querySelector(
+                            ".card-category"
+                        )?.textContent.trim();
+
+
+                    /*
+                     * Só registra como interesse
+                     * quando o usuário salva.
+                     */
+
+                    if (
+                        saveButton.classList
+                            .contains("saved")
+                    ) {
+
+                        registerInterest(
+                            category
+                        );
+
+                        personalizeRecommendations();
+
+                    }
+
+                }
+            );
+
+        }
+    );
+
+
+    personalizeRecommendations();
+
+}
+
+
+/* ---------------------------------------------------------
+   Inicializar depois que a página carregar
+--------------------------------------------------------- */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    () => {
+
+        setTimeout(
+            () => {
+
+                setupPersonalization();
+
+            },
+            100
+        );
+
+    }
+);
