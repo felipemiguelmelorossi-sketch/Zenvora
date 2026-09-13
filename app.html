@@ -273,7 +273,7 @@
 
 
         <!-- ================================
-             DESTAQUE
+             DESTAQUE PERSONALIZADO
         ================================= -->
 
         <section class="featured-section">
@@ -282,16 +282,19 @@
 
                 <div class="featured-content">
 
-                    <span class="featured-tag">
+                    <span
+                        class="featured-tag"
+                        id="featuredTag"
+                    >
                         ✦ RECOMENDADO PARA VOCÊ
                     </span>
 
-                    <h2>
+                    <h2 id="featuredTitle">
                         Descubra o que<br>
                         combina com você.
                     </h2>
 
-                    <p>
+                    <p id="featuredDescription">
                         A Zenvora aprende com aquilo que
                         você gosta para entregar descobertas
                         cada vez mais interessantes.
@@ -300,6 +303,7 @@
                     <button
                         type="button"
                         class="featured-button"
+                        id="featuredButton"
                     >
                         Explorar agora
                         <span>→</span>
@@ -343,14 +347,17 @@
                         PARA VOCÊ
                     </span>
 
-                    <h2>
+                    <h2 id="feedTitle">
                         Descobertas de hoje
                     </h2>
 
                 </div>
 
 
-                <span class="feed-count">
+                <span
+                    class="feed-count"
+                    id="feedCount"
+                >
                     6 descobertas
                 </span>
 
@@ -369,6 +376,7 @@
                     class="discovery-item"
                     data-category="Tecnologia"
                     data-title="Inteligência artificial"
+                    data-base-score="94"
                 >
 
                     <div class="discovery-image technology">
@@ -392,7 +400,7 @@
 
                         <div class="discovery-footer">
 
-                            <span>
+                            <span class="match-text">
                                 ✦ 94% combina com você
                             </span>
 
@@ -417,6 +425,7 @@
                     class="discovery-item"
                     data-category="Games"
                     data-title="Novos jogos"
+                    data-base-score="91"
                 >
 
                     <div class="discovery-image games">
@@ -440,7 +449,7 @@
 
                         <div class="discovery-footer">
 
-                            <span>
+                            <span class="match-text">
                                 ✦ 91% combina com você
                             </span>
 
@@ -465,6 +474,7 @@
                     class="discovery-item"
                     data-category="Negócios"
                     data-title="Ideias de negócios"
+                    data-base-score="88"
                 >
 
                     <div class="discovery-image business">
@@ -488,7 +498,7 @@
 
                         <div class="discovery-footer">
 
-                            <span>
+                            <span class="match-text">
                                 ✦ 88% combina com você
                             </span>
 
@@ -513,6 +523,7 @@
                     class="discovery-item"
                     data-category="Música"
                     data-title="Músicas novas"
+                    data-base-score="86"
                 >
 
                     <div class="discovery-image music">
@@ -536,7 +547,7 @@
 
                         <div class="discovery-footer">
 
-                            <span>
+                            <span class="match-text">
                                 ✦ 86% combina com você
                             </span>
 
@@ -561,6 +572,7 @@
                     class="discovery-item"
                     data-category="Moda"
                     data-title="Tendências de moda"
+                    data-base-score="82"
                 >
 
                     <div class="discovery-image fashion">
@@ -584,7 +596,7 @@
 
                         <div class="discovery-footer">
 
-                            <span>
+                            <span class="match-text">
                                 ✦ 82% combina com você
                             </span>
 
@@ -609,6 +621,7 @@
                     class="discovery-item"
                     data-category="Tecnologia"
                     data-title="Aplicativos úteis"
+                    data-base-score="79"
                 >
 
                     <div class="discovery-image apps">
@@ -632,7 +645,7 @@
 
                         <div class="discovery-footer">
 
-                            <span>
+                            <span class="match-text">
                                 ✦ 79% combina com você
                             </span>
 
@@ -813,6 +826,60 @@
         }
 
 
+
+        /* =================================
+           ELEMENTOS
+        ================================= */
+
+        const welcomeTitle =
+            document.getElementById("welcomeTitle");
+
+        const profileName =
+            document.getElementById("profileName");
+
+        const profileEmail =
+            document.getElementById("profileEmail");
+
+        const userAvatar =
+            document.getElementById("userAvatar");
+
+        const profileAvatar =
+            document.getElementById("profileAvatar");
+
+        const featuredTag =
+            document.getElementById("featuredTag");
+
+        const featuredTitle =
+            document.getElementById("featuredTitle");
+
+        const featuredDescription =
+            document.getElementById("featuredDescription");
+
+        const featuredButton =
+            document.getElementById("featuredButton");
+
+        const feedTitle =
+            document.getElementById("feedTitle");
+
+        const feedCount =
+            document.getElementById("feedCount");
+
+        const discoveryGrid =
+            document.getElementById("discoveryGrid");
+
+        const discoveryItems =
+            Array.from(
+                document.querySelectorAll(
+                    ".discovery-item"
+                )
+            );
+
+
+
+        /* =================================
+           PREENCHER USUÁRIO
+        ================================= */
+
         if (user) {
 
             const name =
@@ -823,40 +890,255 @@
                 name.split(" ")[0];
 
 
-            document.getElementById(
-                "welcomeTitle"
-            ).textContent =
+            welcomeTitle.textContent =
                 `Olá, ${firstName}. Descubra algo novo.`;
 
 
-            document.getElementById(
-                "profileName"
-            ).textContent =
+            profileName.textContent =
                 name;
 
 
-            document.getElementById(
-                "profileEmail"
-            ).textContent =
+            profileEmail.textContent =
                 user.email || "";
 
 
             const initial =
-                firstName.charAt(0).toUpperCase();
+                firstName
+                    .charAt(0)
+                    .toUpperCase();
 
 
-            document.getElementById(
-                "userAvatar"
-            ).textContent =
+            userAvatar.textContent =
                 initial;
 
 
-            document.getElementById(
-                "profileAvatar"
-            ).textContent =
+            profileAvatar.textContent =
                 initial;
 
         }
+
+
+
+        /* =================================
+           PREFERÊNCIAS
+        ================================= */
+
+        let preferences = {};
+
+
+        try {
+
+            const storedPreferences =
+                localStorage.getItem(
+                    "zenvora_preferences"
+                );
+
+
+            if (storedPreferences) {
+
+                preferences =
+                    JSON.parse(
+                        storedPreferences
+                    );
+
+            }
+
+        } catch (error) {
+
+            preferences = {};
+
+        }
+
+
+
+        /* =================================
+           CATEGORIA FAVORITA
+        ================================= */
+
+        let favoriteCategory = null;
+
+        let highestPreference = 0;
+
+
+        Object.keys(preferences).forEach(
+            category => {
+
+                const value =
+                    Number(
+                        preferences[category]
+                    ) || 0;
+
+
+                if (
+                    value >
+                    highestPreference
+                ) {
+
+                    highestPreference =
+                        value;
+
+                    favoriteCategory =
+                        category;
+
+                }
+
+            }
+        );
+
+
+
+        /* =================================
+           PERSONALIZAÇÃO DO DESTAQUE
+        ================================= */
+
+        if (favoriteCategory) {
+
+            featuredTag.textContent =
+                `✦ FEITO PARA QUEM GOSTA DE ${favoriteCategory.toUpperCase()}`;
+
+
+            featuredTitle.innerHTML =
+                `Descubra mais sobre<br>${favoriteCategory}.`;
+
+
+            featuredDescription.textContent =
+                `Você demonstrou interesse em ${favoriteCategory}. A Zenvora vai priorizar descobertas dessa categoria para você.`;
+
+
+            feedTitle.textContent =
+                `Mais coisas de ${favoriteCategory}`;
+
+
+            featuredButton.textContent =
+                "Explorar agora →";
+
+        }
+
+
+
+        /* =================================
+           CALCULAR MATCH
+        ================================= */
+
+        function getPersonalizedScore(item) {
+
+            const baseScore =
+                Number(
+                    item.dataset.baseScore
+                ) || 70;
+
+
+            const category =
+                item.dataset.category;
+
+
+            const interest =
+                Number(
+                    preferences[category]
+                ) || 0;
+
+
+            let bonus =
+                interest * 4;
+
+
+            if (
+                category === favoriteCategory
+            ) {
+
+                bonus += 5;
+
+            }
+
+
+            const score =
+                Math.min(
+                    99,
+                    Math.round(
+                        baseScore + bonus
+                    )
+                );
+
+
+            return score;
+
+        }
+
+
+
+        /* =================================
+           APLICAR MATCH
+        ================================= */
+
+        discoveryItems.forEach(
+            item => {
+
+                const score =
+                    getPersonalizedScore(
+                        item
+                    );
+
+
+                const matchText =
+                    item.querySelector(
+                        ".match-text"
+                    );
+
+
+                if (matchText) {
+
+                    matchText.textContent =
+                        `✦ ${score}% combina com você`;
+
+                }
+
+
+                item.dataset.personalizedScore =
+                    score;
+
+            }
+        );
+
+
+
+        /* =================================
+           ORDENAR RECOMENDAÇÕES
+        ================================= */
+
+        discoveryItems.sort(
+            (a, b) => {
+
+                const scoreA =
+                    Number(
+                        a.dataset.personalizedScore
+                    ) || 0;
+
+
+                const scoreB =
+                    Number(
+                        b.dataset.personalizedScore
+                    ) || 0;
+
+
+                return scoreB - scoreA;
+
+            }
+        );
+
+
+        discoveryItems.forEach(
+            item => {
+
+                discoveryGrid.appendChild(
+                    item
+                );
+
+            }
+        );
+
+
+        feedCount.textContent =
+            `${discoveryItems.length} descobertas`;
 
 
 
@@ -867,12 +1149,6 @@
         const categoryButtons =
             document.querySelectorAll(
                 ".category-button"
-            );
-
-
-        const discoveryItems =
-            document.querySelectorAll(
-                ".discovery-item"
             );
 
 
@@ -903,6 +1179,10 @@
                             button.dataset.category;
 
 
+                        let visible =
+                            0;
+
+
                         discoveryItems.forEach(
                             item => {
 
@@ -914,6 +1194,8 @@
                                     item.style.display =
                                         "block";
 
+                                    visible++;
+
                                 } else {
 
                                     item.style.display =
@@ -923,6 +1205,10 @@
 
                             }
                         );
+
+
+                        feedCount.textContent =
+                            `${visible} descoberta${visible === 1 ? "" : "s"}`;
 
                     }
                 );
@@ -1007,6 +1293,10 @@
 
                 }
 
+
+                feedCount.textContent =
+                    `${results} descoberta${results === 1 ? "" : "s"}`;
+
             }
         );
 
@@ -1077,6 +1367,16 @@
                 );
 
 
+                localStorage.removeItem(
+                    "zenvora_preferences"
+                );
+
+
+                localStorage.removeItem(
+                    "zenvora_onboarding"
+                );
+
+
                 window.location.href =
                     "login.html";
 
@@ -1103,6 +1403,96 @@
                     searchInput.focus();
 
                 }
+
+            }
+        );
+
+
+
+        /* =================================
+           BOTÃO DESTAQUE
+        ================================= */
+
+        featuredButton.addEventListener(
+            "click",
+            () => {
+
+                document
+                    .getElementById("inicio")
+                    .scrollIntoView({
+                        behavior: "smooth"
+                    });
+
+            }
+        );
+
+
+
+        /* =================================
+           NAVEGAÇÃO DA SIDEBAR
+        ================================= */
+
+        const sidebarLinks =
+            document.querySelectorAll(
+                ".sidebar-link[href^='#']"
+            );
+
+
+        sidebarLinks.forEach(
+            link => {
+
+                link.addEventListener(
+                    "click",
+                    event => {
+
+                        const target =
+                            link.getAttribute(
+                                "href"
+                            );
+
+
+                        if (
+                            target &&
+                            target.startsWith("#")
+                        ) {
+
+                            event.preventDefault();
+
+
+                            const section =
+                                document.querySelector(
+                                    target
+                                );
+
+
+                            if (section) {
+
+                                section.scrollIntoView({
+                                    behavior: "smooth"
+                                });
+
+                            }
+
+
+                            sidebarLinks.forEach(
+                                item => {
+
+                                    item.classList.remove(
+                                        "active"
+                                    );
+
+                                }
+                            );
+
+
+                            link.classList.add(
+                                "active"
+                            );
+
+                        }
+
+                    }
+                );
 
             }
         );
